@@ -1,0 +1,30 @@
+{% extends "/base.html" %}
+{% set active_page = "projects" %}
+{% import "projects/_helpers.html" as helper %}
+
+{% block content %}
+{% from "_formhelpers.html" import render_field %}
+{{ helper.render_project_local_nav(project, 'auditlog', current_user, pro_features, staff_or_admin) }}
+<span class="set-body-bg" data-bg="pattern-white-wall"></span>
+<div class="container container-main">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3">
+            {{ helper.render_project_title(project, subtitle="Importar tareas")}}
+            <div class="row">
+                <div class="col-xs-12">
+                    <p class="lead">Utilice uno de los siguientes <strong> importadores </strong> para importar tareas.</p>
+                </div>
+            </div>
+            {% for row in available_importers|batch(3) %}
+            <div class="row">
+                {% for importer in row %}
+                <div class="col-sm-4">
+                    {% include importer %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

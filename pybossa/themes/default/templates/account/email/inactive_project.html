@@ -1,0 +1,23 @@
+{% extends "account/email/base.html" %}
+
+{% block subject %}
+Su proyecto ha estado inactivo por tres meses
+{% endblock %}
+
+{% block subtitle %}
+Hola {{user['fullname']}},
+{% endblock %}
+
+{% block body %}
+<p> Su proyecto {{ project.name }} ha estado inactivo durante los últimos 3 meses. Y nos gustaría informarle que si necesita ayuda, contáctenos respondiendo este correo electrónico.
+</p>
+<p> De lo contrario, archivaremos el proyecto y lo eliminaremos del servidor. Tienes un mes para cargar nuevas tareas, agregar una nueva publicación de blog o contratar nuevos voluntarios.
+</p>
+<p> Si, al final de un mes, se elimina el proyecto, le enviaremos un archivo ZIP donde puede descargar su proyecto.
+</p>
+<p> Todo lo mejor,
+</p>
+<p>El equipo de {{ config.BRAND }}
+<p>
+</p>
+{% endblock %}

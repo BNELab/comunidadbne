@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% set active_page = "signin" %}
+{% from "_formhelpers.html" import render_field %}
+
+{% block content %}
+<div class="container container-main text-center">
+
+
+
+
+
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+        <form id="signin" method="post" role="form" action="">
+            {{ form.hidden_tag() }}
+            <h3 class="text-center">Iniciar sesión con su cuenta {{brand}}</h3>
+
+            {{ render_field(form.email, placeholder="Email", class="form-control", type="email", autofocus="autofocus", required="required") }}
+            {{ render_field(form.password, placeholder="Contraseña", class="form-control", type="password", required="required", pattern=".{6,}", title="Debe tener un mínimo de 6 caracteres.") }}
+            <div class="margin-top-xs margin-bottom-sm">
+                <a href="{{ url_for('account.forgot_password') }}" class="remove-padding-left">¿Olvido su contraseña?</a>
+            </div>
+            <div class="" role="group">
+                <input type="reset" value="Cancelar" class="btn btn-success" />
+                <input type="submit" value="Entrar" class="btn btn-default" />
+            </div>
+        </form>
+        <div class="padding-top-md">
+            <p class="text-center muted">Al hacer clic en el botón <strong>Iniciar sesión</strong> acepta nuestros <a href={{url_for('help.tos')}}>términos de uso</a>.</p>
+        </div>
+    </div>
+
+    <div class="row padding-top-sm">
+        <div class="col-xs-12 text-center">
+            <a href="{{ url_for('account.register') }}" class="btn btn-default"><i class="fa fa-user-plus"></i> Crea una cuenta</a>
+        </div>
+
+        <div class="col-xs-12 text-center margin-top-md">
+        {% if next is not none%}
+        {% if auth.twitter %}
+        <a href="{{ url_for('twitter.login', next=next) }}" class="btn-social-network"><i class="fa fa-twitter"></i></a>
+        {% endif %}
+        {% if auth.facebook %}
+        <a href="{{ url_for('facebook.login', next=next) }}" class="btn-social-network"><i class="fa fa-facebook"></i></a>
+        {% endif %}
+        {% if auth.google %}
+        <a href="{{ url_for('google.login') }}" class="btn-social-network"><i class="fa fa-google-plus"></i></a>
+        {% endif %}
+        {% else %}
+        {% if auth.twitter %}
+        <a href="{{ url_for('twitter.login') }}" class="btn-social-network"><i class="fa fa-twitter"></i></a>
+        {% endif %}
+        {% if auth.facebook %}
+        <a href="{{ url_for('facebook.login') }}" class="btn-social-network"><i class="fa fa-facebook"></i></a>
+        {% endif %}
+        {% if auth.google %}
+        <a href="{{ url_for('google.login') }}" class="btn-social-network"><i class="fa fa-google-plus"></i></a>
+
+        {% endif %}
+    {% endif %}
+    </div>
+
+    </div>
+</div>
+{% endblock %}

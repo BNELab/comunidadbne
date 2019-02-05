@@ -1,0 +1,200 @@
+{% extends "/base.html" %}
+{% set active_page = "projects" %}
+{% set active_link = "dashboard" %}
+{% import "projects/_helpers.html" as helper %}
+
+{% block content %}
+
+{% if project %}
+{{ helper.render_project_local_nav(project, active_link, current_user, pro_features, staff_or_admin) }}
+<span class="set-body-bg" data-bg="pattern-white-wall"></span>
+<div class="container container-main">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-xs-12">
+            {{ helper.render_project_title(project, subtitle="Administración") }}
+
+            {% if (current_user.is_authenticated() and project.owner_id == current_user.id) or current_user.admin %}
+                <div class="row">
+                    <div id="import_tasks" class="col-sm-6 col-md-4">
+                        <a href="{{url_for('project.import_task', short_name=project.short_name)}}" rel="nofollow">
+                            <div class="well well-link">
+                                <span class="fa fa-download fa-4x"></span>
+                                <h3 class="margin-bottom-xs">Importar tareas</h3>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div id="export_tasks" class="col-sm-6 col-md-4">
+                        <a href="{{url_for('project.export_to', short_name=project.short_name)}}" rel="nofollow">
+                            <div class="well well-link">
+                                <span class="fa fa-upload fa-4x"></span>
+                                <h3 class="margin-bottom-xs">Exportar tareas</h3>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div id="asistente" class="col-sm-6 col-md-4">
+                        <a href="{{ config['URLVAL'] }}asistente/validarlogin?api_key={{ current_user.api_key }}&email={{ current_user.email_addr }}&short_name_proyecto={{project.short_name}}" rel="nofollow">
+                            <div class="well well-link">
+                                <span class="fa fa-magic fa-4x"></span>
+                                <h3 class="margin-bottom-xs">Asistente de tareas</h3>
+                            </div>
+                        </a>
+                    </div>
+
+                    {% if pro_features.get('autoimporter_enabled') %}
+                    <!--<div id="autoimport_tasks" class="col-sm-6 col-md-4">
+                        <a href="{{url_for('project.setup_autoimporter', short_name=project.short_name)}}" rel="nofollow">
+                            <div class="well well-link">
+                                <span class="fa fa-cogs fa-4x"></span>
+                                <h3 class="margin-bottom-xs">Auto-Importar tareas</h3>
+                            </div>
+                        </a>
+                    </div>-->
+                    {% endif %}
+
+                    <div id="task_presenter" class="col-sm-6 col-md-4">
+                        <a href="{{url_for('project.task_presenter_editor', short_name=project.short_name)}}" rel="nofollow">
+                            <div class="well well-link">
+                                <span class="fa fa-edit fa-4x"></span>
+                                <h3 class="margin-bottom-xs">Editor de tarea</h3>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div id="task_browse" class="col-sm-6 col-md-4">
+                        <a href="{{url_for('project.tasks_browse', short_name=project.short_name)}}" rel="nofollow">
+                            <div class="well well-link">
+                                <span class="fa fa-list-alt fa-4x"></span>
+                                <h3 class="margin-bottom-xs">Ver tareas</h3>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div id="task_delete" class="col-sm-6 col-md-4">
+                        <a href="{{url_for('project.delete_tasks', short_name=project.short_name)}}" rel="nofollow">
+                            <div class="well well-link">
+                                <span class="fa fa-trash-o fa-4x"></span>
+                                <h3 class="margin-bottom-xs">Eliminar tareas</h3>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div id="task_redundancy" class="col-sm-6 col-md-4">
+                        <a href="{{url_for('project.task_n_answers', short_name=project.short_name)}}" rel="nofollow">
+                            <div class="well well-link">
+                                <span class="fa fa-repeat fa-4x"></span>
+                                <h3 class="margin-bottom-xs">Redundancia de tarea</h3>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!--<div id="task_priority" class="col-sm-6 col-md-4">
+                        <a href="{{url_for('project.task_priority', short_name=project.short_name)}}" rel="nofollow">
+                            <div class="well well-link">
+                                <span class="fa fa-sort-numeric-asc fa-4x"></span>
+                                <h3 class="margin-bottom-xs">Prioridad de tarea</h3>
+                            </div>
+                        </a>
+                    </div>-->
+
+                    <div id="task_scheduler" class="col-sm-6 col-md-4">
+                        <a href="{{url_for('project.task_scheduler', short_name=project.short_name)}}" rel="nofollow">
+                            <div class="well well-link">
+                                <span class="fa fa-filter fa-4x"></span>
+                                <h3 class="margin-bottom-xs">Opciones de tarea</h3>
+                            </div>
+                        </a>
+                    </div>
+
+
+                    <div id="delete_project" class="col-sm-6 col-md-4">
+                        <a href="{{url_for('project.delete', short_name=project.short_name)}}" rel="nofollow">
+                            <div class="well well-link">
+                                <span class="fa fa-trash fa-4x"></span>
+                                <h3 class="margin-bottom-xs">Eliminar proyecto</h3>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div id="project_details" class="col-sm-6 col-md-4">
+                        <a href="{{ url_for('project.update', short_name = project.short_name) }}" rel="nofollow">
+                            <div class="well well-link">
+                                <span class="fa fa-file-text-o fa-4x"></span>
+                                <h3 class="margin-bottom-xs">Detalles proyecto</h3>
+                            </div>
+                        </a>
+                    </div>
+
+                    {% if pro_features.get('auditlog_enabled') %}
+                    <!--<div id="audit_logs" class="col-sm-6 col-md-4">
+                        <a href="{{url_for('project.auditlog', short_name=project.short_name)}}" rel="nofollow">
+                            <div class="well well-link">
+                                <span class="fa fa-calendar fa-4x"></span>
+                                <h3 class="margin-bottom-xs">Logs</h3>
+                            </div>
+                        </a>
+                    </div>-->
+                    {% endif %}
+
+                    {% if pro_features.get('webhooks_enabled') %}
+                    <!--<div id="audit_logs" class="col-sm-6 col-md-4">
+                        <a href="{{url_for('project.webhook_handler', short_name=project.short_name)}}" rel="nofollow">
+                            <div class="well well-link">
+                                <span class="fa fa-link fa-4x"></span>
+                                <h3 class="margin-bottom-xs">Webhooks</h3>
+                            </div>
+                        </a>
+                    </div>-->
+                    {% endif %}
+
+                    <div id="publish" class="col-sm-6 col-md-4">
+                        <a href="{{url_for('project.publish', short_name=project.short_name)}}" rel="nofollow">
+                            <div class="well well-link">
+                                <span class="fa fa-thumbs-up fa-4x"></span>
+                                <h3 class="margin-bottom-xs">Publicar</h3>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div id="unpublish" class="col-sm-6 col-md-4">
+                        <a href="{{url_for('project.unpublish', short_name=project.short_name)}}" rel="nofollow">
+                            <div class="well well-link">
+                                <span class="fa fa-thumbs-down fa-4x"></span>
+                                <h3 class="margin-bottom-xs">Despublicar</h3>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div id="validate" class="col-sm-6 col-md-4">
+                        <a href="{{ config['VALIDATE_URL'] }}?api_key={{ current_user.api_key }}&short_name={{ project.short_name }}&email={{ current_user.email_addr }}" rel="nofollow">
+                            <div class="well well-link">
+                                <span class="fa fa-check-circle fa-4x"></span>
+                                <h3 class="margin-bottom-xs">Validar resultados</h3>
+                            </div>
+                        </a>
+                    </div>
+
+                    
+
+                    {% if "pybossa_github_builder" in plugins %}
+                    <div class="col-sm-6 col-md-4">
+                        <a href="{{ url_for('github.sync', short_name=project.short_name) }}" rel="nofollow">
+                            <div class="well well-link">
+                                <span class="fa fa-github fa-4x"></span>
+                                <h3 class="margin-bottom-xs">Sincronizar con Github</h3>
+                            </div>
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% else %}
+    {{ helper.render_non_existant_project() }}
+{% endif %}
+
+{% endblock %}

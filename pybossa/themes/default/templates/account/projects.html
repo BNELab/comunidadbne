@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% set active_page = "projects" %}
+{% import "projects/_helpers.html" as helper %}
+
+{% block content %}
+{% if staff_or_admin %}
+<div class="container container-main">
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+            <div class="row vcenter hcenter">
+                <div class="col-md-8 col-xs-12">
+                    <h1>Proyecto</h1>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <a href="{{url_for('project.new')}}" class="btn btn-default pull-right">Crear un proyecto</a>
+                </div>
+            </div>
+            <hr>
+            {% if projects_published or projects_draft %}
+                {{ helper.render_grid_projects(projects_published, "Publicado", current_user) }}
+                {{ helper.render_grid_projects(projects_draft, "Borrador", current_user) }}
+            {% else %}
+            <div class="col-xs-12">
+                <h2>No has creado ningún proyecto.</h2>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="container container-main">
+    <div class="col-xs-12">
+        <h1>No autorizado</h1>
+        <p class="lead">No tiene autorización para acceder a la URL solicitada.</p>
+        <a id="btnHome" href="{{url_for('home.home')}}" class="btn btn-inverse">
+            <i class="fa fa-home"></i> Ir atrás
+        </a>
+    </div>
+</div>
+{% endif %}
+{{ helper.broken_image() }}
+{% endblock %}

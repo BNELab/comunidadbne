@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% set active_page = "support" %}
+
+{% block content %}
+<div class="container container-main">
+    <div class="col-xs-12">
+        <h1>Se ha producido un error</h1>
+        <p class="lead">Intentaremos solucionarlo tan pronto como podamos.</p>
+        <a id="btnHome" href="{{url_for('home.home')}}" class="btn btn-inverse">
+            <i class="fa fa-home"></i> Ir atrás
+        </a>
+    </div>
+</div>
+{% endblock %}

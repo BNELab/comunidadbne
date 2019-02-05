@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% set active_page = "community"  %}
+{% import "privacy/locked.html" as privacy %}
+{% import "account/_helpers.html" as helper %}
+{% from "projects/_helpers.html" import broken_image %}
+{% set title = "Colaboradores" %}
+{% set description = "Colaboradores" %}
+
+
+
+{% block content %}
+<div class="container-padded">
+    <div class="container container-padded">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                {% if enforce_privacy and (current_user.is_anonymous() or (current_user.is_authenticated() and not current_user.admin)) %}
+                    {{ privacy.render_lock_page() }}
+                {% else %}
+                <h1>Colaboradores <small style="font-size: 11px;">{{total}} usuarios registrados</small></h1>
+
+                 <p>Este es el listado de los colaboradores más activos de la plataforma. Desde la Biblioteca Nacional de España, queremos agradecer a todas las personas que nos ayudan en la tarea de ampliar el conocimiento a través de la colaboración en los distintos proyectos que proponemos. Os animamos a seguir participando y colaborando con nosotros y escalar en la clasificación de usuarios con mas colaboraciones.</p>
+                    {% if accounts %}
+                    <ul class="users text-center">
+
+                    {% for account in accounts %}
+                        <li class="text-center">
+                        <a href="{{url_for('account.profile', name=account.name)}}" data-content="
+                            <strong>Desde:</strong> {{account.created[8:10]}}-{{account.created[5:7]}}-{{account.created[0:4]}}" class="avatar-popover" data-original-title="<strong>{{account.name}}</strong>
+                             ">
+                            <div class="shadow img-circle shadow-circle">
+                                {{ helper.render_user_avatar(account, upload_method, class="img-circle") }}
+                            </div>
+                        </a>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            <div class="row text-center">
+                <div class="col-sm-12">
+                
+
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                    <div class="col-xs-12">
+                        <div class="">
+                            {% if enforce_privacy and (current_user.is_anonymous() or (current_user.is_authenticated and not current_user.admin)) %}
+                            {{ privacy.render_lock_page() }}
+                            {% else %}
+                            <h1 class="xs-center">Clasificación</h1>
+                            <table class="table table-striped table-hover table-condensed">
+                                <thead class="inset-text-mid-grey">
+                                    <tr>
+                                        <th class="text-center">Posición</th>
+                                        <th>Nombre</th>
+                                        <th class="text-center">Contribuciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for user in top_users %}
+                                    {% if user.score|int > 0 and user.rank|int > 0 %}
+                                        {% if user.fullname == current_user.fullname %}
+                                            <style type="text/css">
+                                                table tbody tr:last-child {
+                                                  display: none;
+                                                }
+                                            </style>
+                                            <tr class="success">
+                                                <td class="text-center"><strong>{{user.rank}}</strong></td>
+                                                <td><strong><a href="{{url_for('account.profile', name=user.name)}}">{{user.name}}</a></strong></td>
+                                                <td class="text-center"><strong>{{user.score}}</strong></td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td class="text-center">{{user.rank}}</td>
+                                                <td><strong><a href="{{url_for('account.profile', name=user.name)}}">{{user.name}}</a></strong></td>
+                                                <td class="text-center">{{user.score}}</td>
+                                            </tr>
+                                        {%endif%}
+                                    {%endif%}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+$("a[rel=popover]").popover({
+        html: true,
+        animate: true,
+        trigger: 'hover',
+        placement: 'bottom'
+                });
+</script>
+{{ broken_image() }}
+{% endblock %}

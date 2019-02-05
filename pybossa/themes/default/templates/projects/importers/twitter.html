@@ -1,0 +1,33 @@
+{% extends "/base.html" %}
+{% set active_page = "projects" %}
+{% import "projects/_helpers.html" as helper %}
+
+{% block content %}
+{% from "_formhelpers.html" import render_field %}
+{{ helper.render_project_local_nav(project, 'twitterimporter', current_user, pro_features, staff_or_admin) }}
+<div class="container container-main">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3">
+            {{ helper.render_loading(loading_text) }}
+            <h1><strong>{{project.name}}</strong>: Importar tareas</h1>
+            {% if form %}
+            <hr>
+            <div class="row vcenter">
+                <h3>Desde un hashtag o cuenta de Twitter</h3>
+            </div>
+            <form role="form" method="post" action="{{ url_for(target, short_name=project.short_name) }}">
+                <fieldset>
+                    {{ form.hidden_tag() }}
+                    {{ render_field(form.source, class_="input-block-level form-control", placeholder='#hashtag o @user') }}
+                    {{ render_field(form.max_tweets, class_="input-block-level form-control") }}
+                    <div class="pull-right" role="group">
+                        <a href="{{ url_for('project.import_task', short_name=project.short_name) }}" class="btn btn-default">Cancelar</a>
+                        <input id="import" type="submit" value="Importar" class="btn btn-default" />
+                    </div>
+                </fieldset>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

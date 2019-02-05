@@ -1,0 +1,32 @@
+{% extends "account/email/base.html" %}
+
+{% block subject %}
+<a href="{{url_for('project.details', short_name=project.short_name, _external=True)}}">Actualización semanal de su proyecto: {{project.name}}</a>
+{% endblock %}
+
+{% block subtitle %}
+Hola {{ project.owner.fullname }},
+{% endblock %}
+{% block body %}
+<p>Aquí hay algunas ideas sobre cómo se ha estado ejecutando su proyecto durante la última semana.</p>
+
+<h3>Número de tareas completadas: {{n_completed_tasks | humanize_intword }}</h3>
+<h3>Día más activo de la semana: {{active_day[0]}} with {{active_day[1]}} respuestas enviadas</h3>
+
+{% set text = [project.name, ' needs your help! Can you help us?']%}
+
+<p><em>{{text | join }}| truncate(100) }}</em></p>
+
+<p><a href="https://twitter.com/intent/tweet?text={{text | join | truncate(100) | urlencode}}&url={{url_for('project.details', short_name=project.short_name, _external=True)|urlencode}}&hashtags=crowdsourcing&via=PyBossa">¡Tweet!</a></p>
+
+<h3>Top 5 usuarios registrados</h3>
+<ol>
+{% for u in users_stats.auth.top5 %}
+    <li><a href="{{url_for('account.profile', name=u.name, _external=True)}}">{{u.fullname}}</a></li>
+{% endfor %}
+</ol>
+
+<p>Todo lo mejor,</p>
+
+<p>El equipo de {{ config.BRAND }}</p>
+{% endblock %}

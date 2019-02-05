@@ -1,0 +1,165 @@
+{% extends "/base.html" %}
+{% set active_page = "projects" %}
+{% import "projects/_helpers.html" as helper %}
+{% set title = "Proyectos" %}
+{% set description = "Participar en proyectos de crowdsourcing." %}
+
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.es.min.js" type="text/javascript" charset="utf-8"></script>
+
+<div class="filters-section">
+    <div class="container">
+        <div class="filters-category">
+            <div class="filter-cat hidden-xs" data-id="1">
+                <i class="fa fa-edit" aria-hidden="true"></i>
+                <span>identificación y transcripción</span>
+            </div>
+            <div class="filter-cat hidden-xs" data-id="2">
+                <i class="fa fa-globe" aria-hidden="true"></i>
+                <span>georreferenciación</span>
+            </div>
+            <div class="filter-cat hidden-xs" data-id="3">
+                <i class="fa fa-music" aria-hidden="true"></i></i>
+                <span>transcripción de audios</span>
+            </div>
+            <div class="filter-cat hidden-xs" data-id="4">
+                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                <span>marcado y etiquetado</span>
+            </div>
+            <div class="filter-cat hidden-xs" data-id="5">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+                <span>enriquecimiento de datos</span>
+            </div>
+        
+        </div>
+        <div class="filters-select">
+            <section id="bloquebusqueda" class="form-inline margin-bottom-sm">
+            <div class="form-group">
+                <input type="text" name="nombre" style="text-align: center" placeholder="Nombre proyecto" id="fnombre" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="text" name="fecha" style="text-align: center" placeholder="Fecha de publicación" id="ffdesde" class="form-control">
+            </div>
+            <select name="tipoproyecto" id="tipoproyecto" class="form-control">
+                <option value="">Tipo de proyecto</option>
+                <option value="1">Identificación y transcripción</option>
+                <option value="2">Georreferenciación</option>
+                <option value="3">Transcripción de audios</option>
+                <option value="4">Marcado y etiquetado</option>
+                <option value="5">Enriquecimiento de datos</option>
+            </select>
+            <select name="intereses" id="intereses" class="select2 form-control">
+                <option value="">Interés</option>
+                <option value="lugares">Lugares</option>
+                <option value="espectaculos">Espectáculos</option>
+                <option value="historico">Histórico</option>
+                <!--<option value="prensa">Prensa</option>-->
+            </select>
+            <select name="ambito" id="ambito" class="form-control">
+                <option value="">Ámbito</option>
+                <option value="nacional">Nacional</option>
+                <option value="internacional">Internacional</option>
+            </select>
+            <select name="ordenarpor" id="ordenarpor" class="form-control">
+                <option value="">Ordenar por</option>
+                <option value="ntareas">Nº Tareas</option>
+                <option value="progreso">Progreso</option>
+            </select>
+        </section>
+        </div>
+    
+    </div>
+</div>
+<div class="container padding-bottom-md">  
+
+    {% if projects %}
+        <div class="polaroids projects" id="proyectos">
+            {% for project in projects %}
+                {{ helper.show_project(project, active_cat.short_name, current_user, upload_method) }}
+            {% endfor %}
+        </div>
+        {% if pagination.pages > 1 %}
+            {{ helper.render_pagination(pagination) }}
+        {% endif %}
+    {% else %}
+        <div class="container container-padded">
+            <h2 class="text-center inset-text-grey">Lo sentimos, todavía no hay proyectos publicados para esta categoría.</h2>
+        </div>
+    {% endif %}
+</div>
+
+{{ helper.broken_image() }}
+
+<script>
+
+    $( ".filter-cat" ).click(function() {
+      $( ".filter-cat" ).removeClass("selected");
+      $(this).addClass("selected");
+      var id = $(this).attr('data-id');
+      $('#tipoproyecto').val(id);
+      $('#tipoproyecto').change();
+    });
+
+    
+    $("#tipoproyecto" ).change(function() {
+        var id = $(this).val();
+        $( ".filter-cat" ).removeClass("selected");
+        $(".filter-cat[data-id='"+id+"']").addClass("selected");
+        getFilter();
+    });
+
+    $('#ffdesde').datepicker({
+        format: 'dd/mm/yyyy',
+        language:'es',
+        autoclose: true,
+        todayHighlight: true,
+        clearBtn: true,
+    });
+
+    
+    $( "#fnombre" ).keyup(function() {
+      getFilter();
+    });
+
+    $( "#ffdesde,#intereses,#ambito,#ordenarpor" ).change(function() {
+      getFilter();
+    });
+
+    function getFilter() {
+        var nombre = $( "#fnombre" ).val();
+        var fecha = $( "#ffdesde" ).val();
+        var tipoproyecto = $( "#tipoproyecto" ).val();
+        var intereses = $( "#intereses" ).val();
+        var ambito = $( "#ambito" ).val();
+        var ordenarpor = $( "#ordenarpor" ).val();
+
+        $.ajax({
+            url: "{{config.get('URLVAL')}}endpoint/get_proyects?html=html&nombre="+nombre+"&fecha="+fecha+"&tipoproyecto="+tipoproyecto+"&intereses="+intereses+"&ambito="+ambito+"&ordenarpor="+ordenarpor,
+            data: {},
+        }).done(function(data) {
+            $('#proyectos').html(data);
+            $(".project-box").css('height','');
+            $(".project-box").equalHeights();
+        });
+    }
+
+    $.fn.equalHeights = function() {
+        var maxHeight = 0;
+        this.each(function(){
+            var $this = jQuery(this);
+            if ($this.height() > maxHeight) { maxHeight = $this.height(); }
+        });
+        this.each(function(){
+            var $this = jQuery(this);
+            $this.height(maxHeight);
+        });
+    };
+    $(window).load(function() {
+        $(".project-box").css('height','');
+        $(".project-box").equalHeights();
+    });
+</script>
+{% endblock %}

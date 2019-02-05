@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<span class="set-body-bg" data-bg="pattern-white-wall"></span>
+<div class="container container-main">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-sm-6 col-sm-offset-3">
+                <div class="white-panel inset-shadow-white">
+                    <h2>¡Genial, solo un paso más!</h2>
+                    <p>Para confirmar su identidad, hemos enviado un enlace a la dirección de correo electrónico provista, haga clic en él para finalizar la creación de su cuenta de {{ config.BRAND }}.</p>
+                    <p>Si no recibió el correo electrónico en los próximos minutos, verifique su carpeta de correo no deseado.</p>
+                    <a id="btnHome" href="{{url_for('home.home')}}" class="btn btn-inverse">
+                    <i class="fa fa-home"></i> Inicio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

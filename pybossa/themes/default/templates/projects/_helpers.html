@@ -1,0 +1,401 @@
+{% macro render_pagination(pagination) %}
+<div class="pagination pagination-centered">
+    <ul>
+        {% if pagination.has_prev %}
+        <li>
+            <a href="{{ url_for_other_page(pagination.page - 1)}}">&laquo; </a>
+        </li>
+        {% endif %}
+
+        {% for page in pagination.iter_pages() %}
+            {% if page %}
+                {% if page != pagination.page %}
+                <li>
+                    <a href="{{ url_for_other_page(page) }}">{{ page }}</a>
+                </li>
+                {% else %}
+                <li class="active">
+                    <a href="#">{{ page }}</a>
+                </li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+
+        {% if pagination.has_next %}
+        <li>
+            <a href="{{ url_for_other_page(pagination.page + 1)}}"> &raquo;</a>
+        </li>
+        {% endif %}
+    </ul>
+</div>
+{% endmacro %}
+
+{% macro render_project_local_nav(project, active_link, current_user, pro_features, staff_or_admin) -%}
+<ul data-spy="affix" data-offset-top="200px" class="nav nav-list bs-docs-sidenav affix-top">
+{% if staff_or_admin %}
+    
+
+    {% if project %}
+        <li class="nav-link{% if active_link=="dashboard"%} active{% endif %}">
+            <a href="{{url_for('project.tasks', short_name=project.short_name)}}">Administrar proyecto</a></li>
+
+        <li class="nav-link{% if active_link=="update"%} active{% endif %}">
+            <a href="{{url_for('project.update', short_name=project.short_name)}}"> Detalles del proyecto</a>
+        </li>
+
+        <!--<li class="nav-link{% if active_link=="stats"%} active{% endif %}">
+            <a href="{{url_for('project.show_stats', short_name=project.short_name)}}"> Estadísticas</a>
+        </li>-->
+
+
+
+        {% if config.get('VALIDATE_URL') %}
+        <li class="nav-link">
+            <a href="{{ config['VALIDATE_URL'] }}?api_key={{ current_user.api_key }}&short_name={{ project.short_name }}&email={{ current_user.email_addr }}&stat="> Estadísticas
+                <span id="unverified" class="badge badge-info"></span>
+            </a>
+        </li>
+        <li class="nav-link">
+            <a href="{{ config['VALIDATE_URL'] }}?api_key={{ current_user.api_key }}&short_name={{ project.short_name }}&email={{ current_user.email_addr }}"> Validar resultados
+                <span id="unverified" class="badge badge-info"></span>
+            </a>
+        </li>
+        <!--<li class="nav-link">
+            <a target="_blank" href="{{ config['BASE_URL'] }}/api/result?project_id={{ project.id }}"> Descargar resultados</a>
+        </li>-->
+        {% endif %}
+
+
+        {% if pro_features.get('auditlog') %}
+        <!--<li class="nav-link{% if active_link=="auditlog"%} active{% endif %}">
+            <a href="{{url_for('project.auditlog', short_name=project.short_name)}}"> Logs</a>
+        </li>-->
+        {% endif %}
+        
+        {% if pro_features.get('webhooks') %}
+        <!--<li class="nav-link{% if active_link=="webhook"%} active{% endif %}">
+            <a href="{{url_for('project.webhook_handler', short_name=project.short_name)}}"> Webhooks</a>
+        </li>-->
+        {% endif %}
+
+        <!--<li class="nav-link{% if active_link=="results"%} active{% endif %}">
+            <a href="{{url_for('project.results', short_name=project.short_name)}}"> Resultados</a>
+        </li>-->
+
+        
+
+        <li class="nav-link">
+            <a href="{{url_for('project.presenter', short_name=project.short_name)}}"  data-toggle="popover" data-title="Contribuir en el proyecto" data-html="false" data-trigger="hover" data-placement="top" data-content="Pulsa en este botón acceder a la página de colaboración del proyecto."> Contribuir</a>
+        </li>
+    {% endif %}
+{% elif project %}
+    <li class="nav-link{% if active_link=="contribute"%} active{% endif %}">
+        <a href="{{url_for('project.presenter', short_name=project.short_name)}}"  data-toggle="popover" data-title="Contribuir en el proyecto" data-html="false" data-trigger="hover" data-placement="top" data-content="Pulsa en este botón acceder a la página de colaboración del proyecto."> Contribuir</a>
+    </li>
+{% endif %}
+</ul>
+<script>
+    $.ajax({
+        url: "{{ config['BASE_URL'] }}/api/result?project_id=" + {{ project.id }} + "&limit=100&info=Unverified&all=1",
+        dataType: "json",
+    }).done(function( results ) {
+        var count = results.length;
+        if (count == 100) {
+            $("#unverified").html('99+');
+        } else if (count > 0){
+            $("#unverified").html(count);
+        }
+    });
+</script>
+{% endmacro %}
+
+{% macro render_project_summary(project, n_tasks, overall_progress, last_activity, current_user, upload_method) -%}
+<div class="row">
+    <div class="col-sm-6">
+        {{ render_project_thumbnail(project, upload_method, id="project.id", class='img-polaroid') }}
+    </div>
+    <div class="col-sm-6 padding-top-xs">
+      <ul style="list-style-type: none; font-size: 16px;">
+        {% if current_user.id == project.owner_id %}
+        <li><strong><i class="fa fa-cog"></i> ID</strong>: {{ project.id }}</li>
+        {% endif %}
+        <li><strong><i class="fa fa-info-circle"></i> Description</strong>: {{ project['description'] }}</li>
+        <li><strong><i class="fa fa-magic"></i> Created</strong>: {{project.created[8:10]}}-{{project.created[5:7]}}-{{project.created[0:4]}}</li>
+        <li><strong><i class="fa fa-clock-o"></i> Last Activity</strong>: {{project.last_activity[8:10]}}-{{project.last_activity[5:7]}}-{{project.last_activity[0:4]}}</li>
+        <li><strong><i class="fa fa-check-square-o remove-colour"></i> Overall progress</strong>: {{ overall_progress | round | int }}% completed</li>
+        <li><strong><i class="fa fa-tasks"></i> <a href="{{url_for('project.tasks',short_name=project.short_name)}}">Tasks</strong></a> ({{ n_tasks }})</li>
+      </ul>
+    </div>
+</div>
+{% endmacro %}
+
+{% macro render_project_admin_featured(project, upload_method) %}
+<tr>
+    <td><a href="{{url_for('project.tasks', short_name=project.short_name)}}">{{project.name}}</a></td>
+
+    {% if project.featured %}
+    <td style="text-align:center;">
+        <a id="projectBtnDel{{project.id}}" class="btn btn-inverse" onclick="del({{project.id}})">
+            <i id="project{{project.id}}" class="fa fa-remove"></i> Remove
+        </a>
+        <a id="projectBtnAdd{{project.id}}" class="btn btn-inverse" onclick="add({{project.id}})" style="display:none;">
+                <i id="project{{project.id}}" class="fa fa-plus"></i> Add
+        </a>
+    </td>
+    {% else %}
+     <td style="text-align:center;">
+        <a id="projectBtnAdd{{project.id}}" class="btn btn-inverse" onclick="add({{project.id}})">
+            <i id="project{{project.id}}" class="fa fa-plus"></i> Add
+        </a>
+        <a id="projectBtnDel{{project.id}}" class="btn btn-inverse" onclick="del({{project.id}})" style="display:none;">
+                <i id="project{{project.id}}" class="fa fa-remove"></i> Remove
+        </a>
+    </td>
+    {% endif %}
+</tr>
+{% endmacro %}
+
+{% macro show_project(project, active_cat, current_user, upload_method) %}
+<div class="col-md-4 col-sm-4">
+    <div class="border-gray-all">            
+                <div class="project-box">
+                    <div class="project-img-container hidden-xs"">
+                        <a class="" href="{{ url_for('project.details', short_name = project.short_name) }}" data-polaroid-title="{{ project.name }}">
+                            {{ render_project_thumbnail(project, upload_method, class='img-polaroid', id="project.id") }}
+                        </a>
+                        <div class="button-container">
+                            {% if active_cat != "draft" and project.overall_progress < 100 %}
+                                <a class="btn btn-default" href="{{ url_for('project.details', short_name = project.short_name) }}"   data-toggle="popover" data-title="Contribuir en el proyecto" data-html="false" data-trigger="hover" data-placement="top" data-content="Pulsa en este botón acceder a la página de colaboración del proyecto.">Contribuir</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if project.created %}
+                    <div class="project-txt">
+                        <div class="project-data" hidden>
+                            <span class="date">{{ project.created[0:10] }}</span>
+                            <span class="project-name">{{ project.name}}</span>
+                            {% if project.last_activity_raw != None %}
+                            <span class="activity">{{project.last_activity_raw}}</span>
+                            {% endif %}
+                            <span class="progress">{{ project.overall_progress | round | int }}</span>
+                        </div>
+                        {% endif %}
+        
+                        <div class="text-center hidden-sm hidden-md hidden-lg padding-top-xs">
+                            <a href="{{ url_for('project.details', short_name = project.short_name) }}">
+                                <div class="shadow shadow-inline">
+                                    {{ render_project_thumbnail(project, upload_method, class="img-polaroid", id="project.id") }}
+                                </div>
+                            </a>
+                        </div>   
+                    
+                        <h3 class="text-center-xs"><a href="{{ url_for('project.details', short_name = project.short_name) }}">{{ project.name }}</a></h3>
+                        {% if project.overall_progress < 100 %}
+                            <p class="project-description">{{ project.description }}</p>
+                        {% else %}
+                            <p>Proyecto completado! <i class="fa fa-smile-o padding-left-xs"></i></p>
+                        {% endif %}
+                        <div class="row hidden-md hidden-lg text-center">
+                        {% if active_cat != "draft" and project.overall_progress < 100 %}
+                            <a class="btn btn-default margin-top-sm margin-bottom-xs" href="{{ url_for('project.details', short_name = project.short_name) }}"   data-toggle="popover" data-title="Contribuir en el proyecto" data-html="false" data-trigger="hover" data-placement="top" data-content="Pulsa en este botón acceder a la página de colaboración del proyecto.">Contribuir</a>
+                        {% endif %}
+                        </div>
+                        <div class="hidden-sm hidden-xs">
+                            <div class="project-content-bottom">
+                                <div class="meter border-gray-light-all">
+                                    <span data-progress="{{ project.overall_progress | round | int }}" data-project="{{project.short_name}}">
+                                        <span></span>
+                                    </span>                                    
+                                </div>
+                                <div class="vcenter complete-span">
+                                        Completado: <strong>&nbsp;{{ project.overall_progress | round | int }}%</strong>
+                                </div>
+                                <div class="project-info">                                    
+                                    <div class="vcenter">
+                                        <span class="tasks-remaining" data-tasks="{{project.n_tasks}}" data-progress="{{ project.overall_progress | round | int }}">Tareas restantes:</span>
+                                    </div>
+                                    <div class="vcenter">
+                                        Voluntarios: <strong>&nbsp;{{ project.n_volunteers}}</strong>
+                                    </div>
+                                    <div class="vcenter">
+                                        Última actividad: <strong>&nbsp;{{ project.last_activity}}</strong>
+                                    </div>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+            
+    </div>
+</div>
+{% endmacro %}
+
+{% macro show_itemslide(project, active_cat, current_user, upload_method, active) %}
+        <div class="item {{ active }}">
+            <a href="{{ url_for('project.details', short_name = project.short_name) }}">
+                {{ render_project_thumbnail(project, upload_method, class="img-polaroid2", id="project.id") }}
+                <div class="carousel-caption">
+                  <h3>{{ project.name}}</h3>
+                  <p class="completed"><strong>Completado: &nbsp;{{ project.overall_progress | round | int }}%</strong></p>
+                </div><!-- /.carousel-caption -->
+            </a>
+         </div><!-- /Slide1 -->
+    
+{% endmacro %}
+
+{% macro broken_image() %}
+<script>
+function imgError(image) {
+    image.onerror = "";
+    image.src = "{{url_for('static', filename='img/placeholder.project.png')}}";
+    if (arguments[1] === 'user') {
+        image.src = "{{url_for('static', filename='img/placeholder.user.png')}}";
+    }
+    return true;
+}
+</script>
+{% endmacro %}
+
+{% macro knob(val) %}
+<script src="{{url_for('static', filename='js/vendor/jquery.knob.js')}}"></script>
+<script>
+    $(function() {
+        $(".dial").knob({
+            'min': 0,
+            'max': 100,
+            'skin': 'tron',
+            'fgColor': '#8bbf36',
+            'inputColor': '#8bbf36',
+            'readOnly': true,
+            'thickness': .2,
+            'width': 40,
+            'height': 40,
+            'displayInput': false,
+        });
+        $(".dial").css('font-size', '26px');
+        $(".dial").css('font-weight', 'bold');
+    });
+</script>
+{% endmacro %}
+
+{% macro render_project_title(project, subtitle=None) %}
+<h1>
+{% if subtitle %}
+<strong>{{ project.name }}</strong>: {{subtitle}}
+{% else %}
+<strong>{{ project.name }}</strong>
+{% endif %}
+</h1>
+{% endmacro %}
+
+{% macro render_overall_progress(project, n_tasks, overall_progress, show_contribute_btn=True, show_n_tasks=False) %}
+<div class="row vcenter-md hcenter">
+    <div class="col-md-8 col-xs-12 vcenter-sm text-center-xs">
+        <div class="col-sm-2 vcenter hcenter"><input type="text" value="{{overall_progress | round |int}}" class="dial"></div>
+        <h3><strong> Overall progress</strong>: {{ overall_progress | round | int }}% completed</h3>
+    </div>
+    <div class="col-md-4 col-xs-12 text-center">
+        {% if show_contribute_btn %}
+        <div class="pull-right-md" role="group">
+            <a href="{{ url_for('project.presenter', short_name=project.short_name)}}" class="btn btn-default"> Contribute</a>
+        </div>
+        {% elif show_n_tasks %}
+        <span class="pull-right-md"><strong>{{n_tasks}}</strong> Tasks</span>
+        {% endif %}
+    </div>
+
+</div>
+<hr>
+{% endmacro %}
+
+{% macro render_grid_projects(projects, title, current_user) %}
+<h2>{{ title }}</h2>
+<hr>
+    {% for project in projects %}
+    <div class="row padding-bottom-sm">
+        <div class="col-xs-8">
+            {% if current_user.id == project.owner_id %}
+                <h4 class="remove-margin-top"><a href="{{url_for('project.tasks', short_name=project.short_name)}}">{{project.name}}</a></h4>
+            {% else %}
+                <h4 class="remove-margin-top"><a href="{{url_for('project.details', short_name=project.short_name)}}">{{project.name}}</a></h4>
+            {% endif %}
+        </div>
+        <div class="col-xs-4 text-center">
+        {{ project.published }}
+        {% if project.overall_progress >= 100 %}
+            <span class="fa fa-check-square-o"></span>
+        {% else %}
+            {{ project.overall_progress | round | int }}% completado
+        {% endif %}
+    </div>
+    </div>
+    {% endfor %}
+{% endmacro %}
+
+{% macro render_loading(text) %}
+<div class="row">
+    <div class="col-xs-12">
+        <div id="loading" class="alert alert-info" style="display:none;">
+            <span class="fa fa-refresh fa-spin"></span> {{text}}
+        </div>
+    </div>
+</div>
+{% endmacro %}
+
+{% macro render_project_thumbnail(project, upload_method, id, class, style) %}
+{% if project.info.container and project.info.thumbnail %}
+    {% if upload_method == 'rackspace'%}
+    <img class="{{class}}" src="{{ url_for('rackspace', filename=project.info.thumbnail, container=project.info.container)}}" style="{{style}}" onerror="imgError(this);" alt="{{project.name}}" title="{{project.name}}">
+    {% else %}
+    <img  class="{{class}}" src="{{ url_for('uploads.uploaded_file', filename=(project.info.container + '/' + project.info.thumbnail)) }}" style="{{style}}" onerror="imgError(this);" alt="{{project.name}}" title="{{project.name}}">
+    {% endif %}
+{% elif project.info.thumbnail %}
+    <img class="{{class}}" src="{{project.info.thumbnail}}" style="{{style}}" onerror="imgError(this);" alt="Project thumbnail">
+{% else %}
+    <img class="{{class}}" src="{{url_for('static', filename='img/placeholder.project.png')}}" style="{{style}}" alt="{{project.name}}" title="{{project.name}}">
+{% endif %}
+{% endmacro %}
+
+{% macro render_url_thumbnail(project, upload_method) %}
+{% if project.info.container and project.info.thumbnail %}
+    {% if upload_method == 'rackspace'%}
+    {{ url_for('rackspace', filename=project.info.thumbnail, container=project.info.container)}}"
+    {% else %}
+    {{ url_for('uploads.uploaded_file', filename=(project.info.container + '/' + project.info.thumbnail))}}
+    {% endif %}
+{% elif project.info.thumbnail %}
+    {{project.info.thumbnail}}"
+{% else %}
+{{url_for('static', filename='img/placeholder.project.png')}}"
+{% endif %}
+{% endmacro %}
+
+{% macro render_social_media_buttons(share_url, tweet) %}
+<div class="col-xs-12 text-center">
+    <h2>¡Compártelo en tus redes!</h2>
+    <a data-content="Compartir en Facebook" class="btn-social-network"
+       onclick="popUp=window.open('http://www.facebook.com/sharer.php?u=https%3A%2F%2F{{ share_url }}',
+                               'popupwindow', 'scrollbars=yes,width=510,height=620');popUp.focus();return false"
+                               data-url="{{ share_url }}">
+        <i class="fa fa-facebook"></i>
+    </a>
+    <a href="#" onclick="popUp=window.open('https://twitter.com/intent/tweet?original_referer=http%3A%2F%2F{{ share_url }}&text={{ tweet }}&tw_p=tweetbutton&url=https%3A%2F%2F{{ share_url }}','popupwindow', 'scrollbars=yes,width=510,height=620');popUp.focus();return false" data-content="Compartir en Twitter" class="btn-social-network" data-url="{{ share_url }}">
+        <i class="fa fa-twitter"></i>
+    </a>
+    <!--<a href="#" data-content="Compartir en LinkedIn" class="btn-social-network"
+    onclick="popUp=window.open('https://www.linkedin.com/cws/share?url=http%3A%2F%2F{{ share_url }}',
+                               'popupwindow', 'scrollbars=yes,width=510,height=620');popUp.focus();return false"
+                               data-url="{{ share_url }}">
+        <i class="fa fa-linkedin"></i>
+    </a>-->
+</div>
+{% endmacro %}
+
+{% macro render_non_existant_project() %}
+<div class="container container-main">
+    <h1>Lo sentimos, este proyecto no existe.</h1>
+    <a id="btnHome" href="{{url_for('home.home')}}" class="btn btn-inverse">
+        <i class="fa fa-home"></i> Volver atrás
+    </a>
+</div>
+{% endmacro %}

@@ -1,0 +1,23 @@
+{% extends "account/email/base.html" %}
+
+{% block subject %}
+Necesitamos tu ayuda !
+{% endblock %}
+
+{% block subtitle %}
+Hola {{user['fullname']}},
+{% endblock %}
+
+{% block body %}
+<p>Notamos que te registraste para {{ config.BRAND }} hace algún tiempo pero nunca contribuiste.</p>
+<p>Sería genial si pudieras venir y ayudarnos a mejorar el acceso al
+colecciones de la Biblioteca Nacional de España!</p>
+<p>
+    <a href="{{ url_for('project.index') }}">Haga clic aquí para ver los proyectos que necesitan su ayuda.</a>
+</p>
+<p> Todo lo mejor,
+</p>
+<p>El equipo de {{ config.BRAND }}
+<p>
+<hr>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% set active_page = "support" %}
+
+{% block content %}
+<div class="container container-main">
+    <h1>404 Página no encontrada</h1>
+    <p class="lead">Lo sentimos, pero no podemos encontrar la página que está buscando.</p>
+    <a id="btnHome" href="{{url_for('home.home')}}" class="btn btn-inverse">
+        <i class="fa fa-home"></i> Ir atrás
+    </a>
+</div>
+{% endblock %}

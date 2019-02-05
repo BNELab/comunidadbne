@@ -1,0 +1,39 @@
+{% extends "/base.html" %}
+{% set active_page = "projects" %}
+{% import "projects/_helpers.html" as helper %}
+{% from "_formhelpers.html" import render_field %}
+
+{% block content %}
+
+{% if project %}
+{{ helper.render_project_local_nav(project, 'scheduler', current_user, pro_features, staff_or_admin) }}
+<div class="container container-main">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3">
+            {{ helper.render_project_title(project, subtitle="Opciones de tarea")}}
+            <p>Puedes elegir entre las siguientes opciones:</p>
+            <ul class="padding-bottom-sm padding-bottom-sm padding-left-sm">
+                <li><strong>Por defecto</strong> o
+                <strong>Profundidad primero</strong>: Devuelve la primera tarea que no se ha completado.</li>
+                <li><strong>Amplitud primero</strong>: Devuelve una tarea con el menor número de contribuciones.</li>
+                <!--<li><strong>Aleatorio</strong>: devuelve una tarea aleatoria: un usuario puede obtener la misma tarea más de una vez.</li>-->
+            </ul>
+
+            <form id="task_scheduler" class="form-horizontal" method="post" action="{{ url_for('project.task_scheduler', short_name=project.short_name) }}">
+                {{ form.hidden_tag() }}
+                <fieldset>
+                    {{ render_field(form.sched, class_="form-control", placeholder="Opciones de tarea para tu proyecto")}}
+                    <div class="pull-right" role="group">
+                        <a href="{{url_for('project.tasks', short_name=project.short_name)}}" class="btn btn-default">Cancelar</a>
+                        <input type="submit" value="Guardar" class="btn btn-default" />
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+{% else %}
+    {{ helper.render_non_existant_project() }}
+{% endif %}
+
+{% endblock %}

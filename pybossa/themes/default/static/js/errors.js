@@ -1,0 +1,1 @@
+function pybossaLogError(e,o){throw o||(o=!0),pybossaNotify("Error: "+e.message,"error"),"undefined"!=typeof Raven&&Raven.isSetup()&&(event_id=Raven.captureException(e),o&&Raven.showReportDialog()),e}

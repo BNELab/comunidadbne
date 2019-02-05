@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% set active_page = "admin" %}
+{% set active_link = "administrators" %}
+{% import "admin/_helpers.html" as helper %}
+
+{% block content %}
+{{ helper.render_admin_local_nav(current_user, active_link) }}
+<div class="container container-main">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3">
+            <h1><strong>Admin:</strong> Administradores</h1>
+            {% from "_formhelpers.html" import render_field %}
+            <form class="form-search" method="POST">
+                {{ form.hidden_tag() }}
+                <div class="input-group">
+                    <input id="user" name="user" type="text" class="search-query form-control" placeholder="Introduce el nombre o el nombre de usuario">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default form-control margin-right-xs search-button"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+            </form>
+            {% if found %}
+            <h2 class="padding-top-sm">Resultados</h2>
+            <table class="table table-stripped table-condensed table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th>Nombre de usuario</th>
+                        <th class="hidden-xs">Nombre completo</th>
+                        <th class="hidden-xs" style="text-align:center;">Desde</th>
+                        <th style="text-align:center;">Acción</th>
+                    </tr>
+                </thead>
+
+            {% for user in found %}
+                {{ helper.render_admin_user(user) }}
+            {% endfor %}
+            </table>
+
+            {% endif %}
+
+            <h2 class="padding-top-sm">Administradores actuales</h2>
+            <table class="table table-stripped table-condensed table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th>Nombre de usuario</th>
+                        <th class="hidden-xs">Nombre completo</th>
+                        <th class="hidden-xs" style="text-align:center;">Desde</th>
+                        <th style="text-align:center;">Acción</th>
+                    </tr>
+                </thead>
+            {% for user in users %}
+                {{ helper.render_admin_user(user) }}
+            {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

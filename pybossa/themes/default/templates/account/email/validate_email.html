@@ -1,0 +1,30 @@
+{% extends "account/email/base.html" %}
+
+{% block subject %}
+Validate your account
+{% endblock %}
+
+{% block subtitle %}
+Hola {{ user['fullname'] }},
+{% endblock %}
+
+{% block body %}
+<p>
+Has actualizado tu dirección de correo electrónico en {{ config.BRAND }}.
+</p>
+<p>
+Para verificar que eres el propietario de esta dirección de correo electrónico, visita la siguiente URL:
+</p>
+<p>
+Haga clic aquí para validar su nueva dirección de correo electrónico:
+</p>
+<p>
+     <a href="{{ confirm_url }}"> {{ confirm_url }} </a>
+</p>
+<p>
+Saludos,
+</p>
+<p>
+El equipo de {{ config.BRAND }}
+</p>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends "/base.html" %}
+{% set active_page = "projects" %}
+{% import "projects/_helpers.html" as helper %}
+
+{% block content %}
+{% from "_formhelpers.html" import render_field %}
+<script src="{{url_for('static', filename='vendor/codemirror/codemirror.js')}}"></script>
+<link type="text/css" rel="stylesheet" href="{{url_for('static', filename='vendor/codemirror/codemirror.css')}}"/>
+<link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/codemirror.css')}}">
+<script src="{{url_for('static', filename='vendor/codemirror/mode/xml/xml.js')}}"></script>
+<script src="{{url_for('static', filename='vendor/codemirror/mode/javascript/javascript.js')}}"></script>
+<script src="{{url_for('static', filename='vendor/codemirror/mode/css/css.js')}}"></script>
+<script src="{{url_for('static', filename='vendor/codemirror/mode/htmlmixed/htmlmixed.js')}}"></script>
+
+<style>
+    iframe {
+        width: 100%;
+        height: 320px;
+    }
+</style>
+<div class="container-padded remove-padding-bottom">
+    <section class="white padding-top-xs">
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- Editor de tarea Editor -->
+                <form id="formdataeditor" class="form-inline" method="post" action="{{ url_for('project.task_presenter_editor', short_name=project.short_name) }}"  actionpreview="{{ url_for('project.task_presenter_editor', short_name=project.short_name) }}preview">
+                    {{ form.hidden_tag() }}
+                    <fieldset>
+                        <div id="code-btns" role="group" class="btn-group">
+                            <a href="{{url_for('project.tasks', short_name=project.short_name)}}" class="btn btn-code">Cancelar</a>
+                            <input id="preview" type="button" value="Vista Previa" class="btn btn-code" />
+                            <input type="submit" value="Guardar" class="btn btn-code" />
+                        </div>
+                        <div id="code-container">
+                        {{ render_field(form.editor)}}
+                        </div>
+                        <div id="preview-container" class="container padding-top-lg" hidden>
+                            <iframe id="preview" frameBorder="0" style="height: 500px"></iframe>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    var delay;
+    var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
+        mode:'text/html',
+        lineNumbers: true,
+        autofocus: true,
+        lineWrapping: true,
+        scrollbarStyle: null,
+    });
+
+    /** Use stylesheets and JS in preview */
+    function updatePreview() {
+        var previewFrame = document.getElementById('preview');
+        var preview =  previewFrame.contentDocument ||  previewFrame.contentWindow.document;
+        preview.open();
+        preview.write(editor.getValue());
+        preview.close();
+        var $head = $("#preview").contents().find("head");
+        $head.append($("<link/>", { rel: "stylesheet", href: "{{url_for('static', filename='vendor/bootstrap.min.css')}}", type: "text/css" }));
+        $head.append($("<link/>", { rel: "stylesheet", href: "{{url_for('static', filename='css/styles.css')}}", type: "text/css" }));
+        $head.append($("<link/>", { rel: "stylesheet", href: "http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400", type: "text/css" }));
+        $head.append($("<link/>", { rel: "stylesheet", href: "http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css", type: "text/css" }));
+        $head.append($("<script/>", { src: "https://code.jquery.com/jquery-2.1.3.min.js" }));
+        $head.append($("<script/>", { src: "{{url_for('static', filename='vendor/bootstrap-3.3.2/js/bootstrap.js')}}" }));
+        $head.append($("<script/>", { src: "https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" }));
+    }
+
+    /** Toggle slide between code editor and preview */
+    $("#preview").off('click').on('click', function(e){
+        $('#formdataeditor').attr('action',$('#formdataeditor').attr('actionpreview'));
+        $('#formdataeditor').submit();
+    });
+
+    preview = '{{ preview }}';
+    if(preview == 'true'){
+        window.open(
+          '/proyectos/{{ project.short_name }}/contribuir',
+          '_blank'
+        );
+    }
+
+    /** Fix gutter size */
+    if ($('.CodeMirror-gutter').length) {
+        $('#code-btns').attr('padding-left', $('.CodeMirror-gutter').attr('width'));
+    }
+</script>
+{% endblock %}

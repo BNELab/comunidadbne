@@ -1,0 +1,32 @@
+{% extends "/base.html" %}
+{% set active_page = "projects" %}
+{% import "projects/_helpers.html" as helper %}
+
+{% block content %}
+{% if project %}
+{{ helper.render_project_local_nav(project, 'delete', current_user, pro_features, staff_or_admin) }}
+<div class="container container-main">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3">
+            <h1><strong>{{project.name}}</strong>: Eliminar proyecto</h1>
+            <div class="alert alert-danger">
+                <strong>Cuidado!</strong> ¡Si eliminas el proyecto, éste y sus tareas desaparecerán para siempre!
+            </div>
+            <form role="form" method="post" action="{{ url_for('project.delete', short_name = project.short_name) }}">
+                <fieldset>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                </fieldset>
+                <h3><strong>¿Estás seguro de que quieres eliminar este proyecto y todas sus tareas?</strong></h3>
+                <div class="pull-right" role="group">
+                    <input type="submit" class="btn btn-default" value="Si, eliminar"/>
+                    <a href="{{ url_for('project.tasks', short_name = project.short_name) }}" class="btn btn-default">No, no elimirar !</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% else %}
+  {{ helper.render_non_existant_project() }}
+{% endif %}
+{{ helper.broken_image() }}
+{% endblock %}

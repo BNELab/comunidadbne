@@ -1,0 +1,88 @@
+<div class="navbar navbar-fixed-top navbar-default notransition {% if not has_splash == 'true' %}opaque{% endif %}">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="fa fa-bars"></span>
+            </button>
+
+            <a class="navbar-brand" href="{{ url_for('home.home') }}">
+                <img id="navbar-logo" src="/static/img/bne-comunidad-logo.PNG" height="63px" alt="{{brand}} logo" />
+            </a>
+
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="nav-link{% if active_page == 'projects' %} active{% endif %}">
+                    <a href="{{ url_for('project.index') }}">Proyectos</a>
+                </li>
+
+                <li class="nav-link{% if active_page == 'statistics' %} active{% endif %}">
+                    <a href="{{ url_for('stats.index')}}">Estadísticas</a>
+                </li>
+
+
+                <li class="nav-link{% if active_page == 'community' %} active{% endif %}">
+                    <a href="{{ url_for('account.index')}}">Colaboradores</a>
+                </li>
+
+                <li class="nav-link{% if active_page == 'about' %} active{% endif %}">
+                    <a href="{{ url_for('home.about')}}">Cómo contribuir</a>
+                </li>
+
+            </ul>
+
+            <!-- Optional search form -->
+            {% include '_gcs_form.html' ignore missing %}
+
+            <ul class="nav navbar-nav navbar-right">
+                {% if current_user.is_authenticated() %}
+                <li class="nav-link">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                        <i class="icon fa fa-user"></i> {{ current_user.name | truncate(10,true) }} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-link">
+                            <a href="{{ url_for('account.profile', name=current_user.name) }}"><i class="fa fa-user"></i> Perfil</a>
+                        </li>
+                        <li class="nav-link">
+                            <a href="{{ url_for('account.update_profile', name=current_user.name) }}"><i class="fa fa-cog"></i> Configuración</a>
+                        </li>
+
+                        {% if staff_or_admin %}
+                        <li class="divider" />
+
+                        <li class="nav-link">
+                            <a href="{{ url_for('project.new') }}"><i class="fa fa-plus"></i> Nuevo proyecto</a>
+                        </li>
+                        <li class="nav-link">
+                            <a href="{{ url_for('account.projects', name=current_user.name) }}"><i class="fa fa-folder-open"></i> Abrir proyecto</a>
+                        </li>
+
+                            {% if current_user.admin %}
+                            <li class="nav-link">
+                                <a href="{{ url_for('admin.index') }}"><i class="fa fa-cog"></i> Admin</a>
+                            </li>
+                            {% endif %}
+                        {% endif %}
+                        <li class="divider"></li>
+
+
+                        <li class="nav-link">
+                            {% if 'pybossa_discourse' in plugins %}
+                            <a href="{{ url_for('discourse.signout') }}"><i class="fa fa-power-off"></i> Cerrar sesión</a>
+                            {% else %}
+                            <a href="{{ url_for('account.signout') }}"><i class="fa fa-power-off"></i> Cerrar sesión</a>
+                            {% endif %}
+                        </li>
+
+                    </ul>
+                </li>
+                {% else %}
+                <!--<li class="nav-link"><a href="{{ url_for('account.signin') }}">Iniciar sesión</a></li>-->
+                <li class="nav-link"><a href="{{ url_for('account.signinAuth0') }}">Iniciar sesión</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>

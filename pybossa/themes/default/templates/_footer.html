@@ -1,0 +1,93 @@
+
+            <div class="container containerfoot">
+                <div class="row imgfooter">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-right bne">
+                        <a target="_blank" href="http://www.bne.es/" title="Biblioteca Nacional de España"><img class="img-responsive-footer" src="/static/img/logo-bne-footer.png" alt="Ir a la web de BNE www.bne.es"></a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
+                        <a target="_blank" href="http://www.minetad.gob.es/es-ES/Paginas/index.aspx" title="Gobierno de España - Ministerio de Energía, turismo y agenda digital"><img class="img-responsive-footer" src="/static/img/logo-gobierno-footer.jpg" alt="Ir a la web del Gobierno de España, Ministerio de Energía, Turismo y Agenda"></a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 redes">
+                         <a target="_blank" href="http://www.red.es/redes/" title="Red.es"><img class="img-responsive-footer" src="/static/img/logo-red-footer.png" alt="Ir a la web de red.es"></a>
+                    </div>               
+                </div>
+                <div class="row  text-center email">
+                    <p><a class="email-footer" href="mailto:bnelab@bne.es" title="Contacta con BNElab"><i class="fa fa-envelope-o" aria-hidden="true"></i> bnelab@bne.es</a></p>
+                </div>
+
+                <div class="row text-center cmsa">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <a class="cms" target="_blank" href="http://www.bne.es/es/NavegacionRecursiva/Pie/avisoLegal/" title="Aviso legal">Aviso legal |</a>
+                        <a class="cms" target="_blank" href="http://www.bne.es/es/NavegacionRecursiva/Pie/Protecciondedatos/" title="Protección de datos">Protección de datos |</a>
+                        <a class="cms" target="_blank" href="http://www.bne.es/es/NavegacionRecursiva/Pie/Cookies/" title="Política de cookies">Política de cookies</a>
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                var fea=$('.nav.nav-pills li a')[0];
+                $(fea).text('Destacados');
+
+
+                $('[data-toggle="popover"]').popover(); 
+
+                  function getCookie(e){
+                      var t=document.cookie;
+                      var n=t.indexOf(" "+e+"=");
+                      if(n==-1){
+                          n=t.indexOf(e+"=")
+                      }
+                      if(n==-1){
+                        t=null
+                      }
+                      else{
+                        n=t.indexOf("=",n)+1;
+                        var r=t.indexOf(";",n);
+                        if(r==-1){
+                           r=t.length
+                        }
+                        t=unescape(t.substring(n,r))
+                      }
+                      return t
+                    }
+                    function setCookie(e,t,n){
+                        var r=new Date;
+                        r.setDate(r.getDate()+n);
+                        var i=escape(t)+(n==null?"":";expires="+r.toUTCString()+";path=/");
+                        document.cookie=e+"="+i
+                    }
+
+                    function guardardata(){
+                        var interes = $('#adm_interes_id').val();
+                        var ambito = $('#adm_ambito_id').val();
+                        var shproject = $('#short_name').val();
+
+                        setCookie("gint",interes,365);
+                        setCookie("gamb",ambito,365);
+                        setCookie("gshpro",shproject,365);
+                    }
+
+
+                $('#adm_interes_id, #adm_ambito_id, #short_name').on('change', function() {
+                  guardardata();
+                });
+
+                var gshpro = getCookie("gshpro");
+                if(gshpro != ""){
+                    var interes = getCookie("gint");
+                    var ambito = getCookie("gamb");
+                    var shproject = getCookie("gshpro");
+
+                    $.ajax({
+                        url: "{{config.get('URLVAL')}}endpoint/save_help_proyects?interes="+interes+"&ambito="+ambito+"&shproject="+shproject,
+                        data: {},
+                    }).done(function(data) {
+                        setCookie("gint","",365);
+                        setCookie("gamb","",365);
+                        setCookie("gshpro","",365);
+                    });
+                }
+
+                    $("[id*=projectBtnDel]").text("Eliminar");
+                    $("[id*=projectBtnAdd]").text("Añadir");
+            </script>

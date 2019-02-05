@@ -1,0 +1,468 @@
+<!-- tipo###1### -->
+
+<!-- config -->
+<script type="text/javascript" charset="utf-8">
+  camposcomunesConfig = "si";
+  anotacionesConfig = "si";
+  dataConfig = 
+  [
+    {
+      'id':'nombreteatro', 
+      'titulo':'¿En qué teatro tiene lugar la función?', 
+      'titulocaja':'Titulo caja', 
+      'tipo': 'selectsimpleauto', 
+      'codigoautocompletado': 'C1006',
+      'datononormalizado': 'no',
+    },
+    {
+      'id':'nombreciudad', 
+      'titulo':'¿En qué ciudad se realiza la función?', 
+      'titulocaja':'Titulo caja', 
+      'tipo': 'selectsimplemanual', 
+      'valores' : ["A Coruña" ,"Álava" ,"Albacete" ,"Alicante" ,"Almería" ,"Asturias" ,"Ávila" ,"Badajoz" ,"Baleares" ,"Barcelona" ,"Burgos" ,"Cáceres" ,"Cádiz" ,"Cantabria" ,"Castellón" ,"Ciudad Real" ,"Córdoba" ,"Cuenca" ,"Girona" ,"Granada" ,"Guadalajara" ,"Guipúzcoa" ,"Huelva" ,"Huesca" ,"Jaén" ,"La Rioja" ,"Las Palmas" ,"León" ,"Lleida" ,"Lugo" ,"Madrid" ,"Málaga" ,"Murcia" ,"Navarra" ,"Ourense" ,"Palencia" ,"Pontevedra" ,"Salamanca" ,"Santa Cruz de Tenerife","Segovia" ,"Sevilla" ,"Soria" ,"Tarragona" ,"Teruel" ,"Toledo" ,"Valencia" ,"Valladolid" ,"Vizcaya" ,"Zamora" ,"Zaragoza"],
+      'datononormalizado': 'no',
+    },
+    {
+      'id':'listaobras', 
+      'titulo':'Títulos de la obras teatrales que se van a representar', 
+      'titulocaja':'Titulo caja', 
+      'tipo': 'selectmultipleauto', 
+      'codigoautocompletado': 'C1001',
+      'datononormalizado': 'no',
+    },
+    {
+      'id':'entradabarata', 
+      'titulo':'¿Cuál es el precio de la entrada más barata?', 
+      'titulocaja':'Titulo caja', 
+      'tipo': 'text', 
+      'limitecaracteres': 5, 
+    },
+    {
+      'id':'entradacara', 
+      'titulo':'¿Cuál es el precio de la entrada más cara?', 
+      'titulocaja':'Titulo caja', 
+      'tipo': 'text', 
+      'limitecaracteres': 5, 
+    },
+    {
+      'id':'listaactores', 
+      'tipo': 'selectsimpleagrupado', 
+      'select1': {
+        'id':'personaje', 
+        'titulo':'Personaje', 
+        'titulocaja':'Titulo caja', 
+        'tipo': 'selectsimpleauto', 
+        'codigoautocompletado': 'C1005',
+        'datononormalizado': 'no',
+      },
+      'select2' : {
+        'id':'rol', 
+        'titulo':'Rol', 
+        'titulocaja':'Titulo caja', 
+        'tipo': 'selectsimplemanual', 
+        'valores' : ["Intérprete" ,"Autor" ,"Apuntador","Bailarín","Músico"],
+        'datononormalizado': 'no',
+      },
+    },
+  ];
+</script>
+<!-- config -->
+
+
+<!-- TUTORIAL -->
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">
+          Transcripción cooperativa de textos existentes en imágenes digitales: <b>Carteles de teatro</b>
+        </h4>
+      </div>
+      <div class="modal-body contenedortuto">
+        <div id="0" class="steptuto">
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="margin-top-xs margin-bottom-sm"> <strong>Introducción</strong>
+              </h3>
+              <p>
+                Gracias por colaborar y aportar tu conocimiento a este proyecto de enriquecimiento cultural para la Biblioteca Nacional de España. El proyecto en el que estás a punto de participar se trata de un conjunto de imágenes de carteles antiguos de teatros de España. Estas imágenes muestran información sobre teatros, representaciones, actores y actrices, precios y demás información histórica acontecida.
+              </p>
+
+              <p>
+                Necesitamos tu colaboración para transcribir la información de las imágenes y así incorporarla a la base de datos de información del catálogo de la Biblioteca Nacional de España.
+              </p>
+
+              <p>
+                Antes de comenzar tienes que saber que puedes colaborar con la Biblioteca Nacional de España de forma anónima o identificándote mediante un usuario registrado. Dicho registro es rápido y sencillo mediante las principales redes sociales. Si te identificas en la plataforma quedarán registradas las estadísticas de colaboración de tu usuario y podrás entrar en los rankings de los mejores colaboradores de la plataforma. Identificarte y/o registrarte es muy sencillo, tan solo tendrás que pulsar el enlace situado en la parte superior de la pantalla “Iniciar sesión” y seguir los sencillos pasos que te indicará.
+              </p>
+
+              <div style="width:100%">
+                <img src="/uploads/proyecto1/tutorial/iniciosesion.jpg" style="margin: 0 auto;display: block;" class="img-responsive"></div>
+
+              <br>
+
+              <p>
+                Pulsa el botón “Siguiente” para continuar con el tutorial, si ya lo has leído anteriormente, puedes cerrarlo directamente. Y si más adelante tienes alguna duda, podrás volver a abrirlo a través del botón “Tutorial” disponible en todas las tareas.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div id="1" class="steptuto">
+          <div class="row">
+            <div class="col-md-12" id="tuto">
+              <h3 class="margin-top-xs margin-bottom-sm"> <strong>Zonas de trabajo</strong>
+              </h3>
+
+              <p>
+                El sistema de colaboración en este proyecto consiste en aportar de forma textual la información que se solicita mediante un sencillo formulario. El objetivo de cada tarea es disponer del máximo de información posible de cada cartel. No te preocupes si no completas todo el formulario, cualquier aportación y colaboración es bienvenida y agradecida para nosotros.
+              </p>
+
+              <p>
+                La pantalla de tareas se divide 3 zonas principales: Imagen, Formulario y Colaboración.
+              </p>
+
+              <div style="width:100%">
+                <img src="/uploads/proyecto1/tutorial/pantalla_1.jpg" style="margin: 0 auto;display: block;" class="img-responsive"></div>
+
+              <br>
+
+              <p>
+                Pulsa “Siguiente” para obtener más información sobre como interactuar con cada una de las zonas.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <div id="2" class="steptuto">
+          <div class="row">
+            <div class="col-md-12">
+
+              <h3 class="margin-top-xs margin-bottom-sm">
+                <strong>Zona de imagen</strong>
+              </h3>
+
+              <p>
+                En la zona de “Imagen” puedes visualizar en detalle la fotografía mostrada en la tarea presentada, mediante el uso de los botones
+                <img src="/uploads/proyecto2/tutorial/boton_mas.jpg">
+                y
+                <img src="/uploads/proyecto2/tutorial/boton_menos.jpg">
+                puedes ampliar o reducir la imagen que se muestra, de esta forma puedes ver todos los detalles de la misma.
+              </p>
+
+              <p>
+                Utilizando el ratón y haciendo uso del “click” izquierdo puedes moverte por la imagen.
+              </p>
+
+              <div style="width:100%">
+                <img src="/uploads/proyecto1/tutorial/pantalla_2.jpg" style="margin: 0 auto;display: block;" class="img-responsive"></div>
+
+              <br>
+              <p>
+                Pulsa “Siguiente” para conocer el funcionamiento de la zona de Formulario.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div id="3" class="steptuto">
+          <div class="row">
+            <div class="col-md-12">
+
+              <h3 class="margin-top-xs margin-bottom-sm">
+                <strong>Zona de formulario</strong>
+              </h3>
+              <p>
+                La zona de formulario consta de dos pasos. El primer paso consiste en rellenar el contenido de unos campos predefinidos.
+              </p>
+              <p>
+                Puedes rellenar la siguiente información usando los controles de selección.  Para ello debes pulsar sobre cada uno de los controles de selección y empezar a escribir el resultado de la pregunta. Estos controles te mostraran sugerencias de autocompletado usando los datos de la <b>Biblioteca Nacional de España</b>
+                .  Cuando encuentres el resultado correcto, pulsa sobre el para selecionarlo.
+              </p>
+              <p>
+                En caso de que no encuentres respuesta para alguna pregunta en el documento, puedes dejarlo vacío.
+              </p>
+
+              <br>
+
+              <div style="width:100%">
+                <img src="/uploads/proyecto1/tutorial/pantalla_3.jpg" style="margin: 0 auto;display: block;" class="img-responsive"></div>
+              <br>
+              <p>
+                En el caso de los personajes y los roles, además de lo anterior, debes pulsar sobre el botón
+                <img src="/uploads/proyecto1/tutorial/botonmas.jpg">
+                para añadirlo al listado.  Para mejorar la eficiencia del autocompletado, es recomendable empezar a buscar el personaje por el apellido, como se puede apreciar en la imagen.
+              </p>
+
+              <br>
+              <div style="width:100%">
+                <img src="/uploads/proyecto1/tutorial/pantalla_6.jpg" style="margin: 0 auto;display: block;" class="img-responsive"></div>
+
+              <br>
+              <p>
+                Una vez completada esta información, veamos el segundo paso,
+                <b>transcripción libre.</b>
+              </p>
+
+              <p>
+                En este apartado, puedes añadir si lo deseas la información transcrita del cartel que no se ha solicitado anteriormente. Para ello, podrás hacer uso de la herramienta de marcado, mediante la cual, puedes seleccionar el texto que vas a transcribir en la imagen y añadir el texto transcrito correspondiente. Puedes añadir tantos marcados en la imagen como necesites.
+              </p>
+
+              <p>
+                Pulsa sobre el botón de “Pulsa para marcar en la imagen” para habilitar la zona de marcado.
+              </p>
+
+              <p>
+                Sobre esta zona, pulsa en la imagen haciendo “click” izquierdo del ratón y arrastra para crear un rectángulo de selección como este.
+              </p>
+
+              <div style="width:100%">
+                <img src="/uploads/proyecto1/tutorial/pantalla_4.jpg" style="margin: 0 auto;display: block;" class="img-responsive"></div>
+              <br>
+              <p>
+                Rellena el texto que has selecionado y pulsa sobre "Guardar".
+              </p>
+
+              <p>
+                No te preocupes si te equivocas o quieres rectificar, pulsando nuevamente “click” izquierdo con el ratón sobre el cuadro de selección, podrás editarlo o eliminarlo.
+              </p>
+
+              <p>
+                Pulsa el botón “Siguiente” para conocer cómo puedes registrar tu colaboración.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div id="4" class="steptuto">
+          <div class="row">
+            <div class="col-md-12">
+
+              <h3 class="margin-top-xs margin-bottom-sm">
+                <strong>Zona de colaboración</strong>
+              </h3>
+
+              <p>
+                Esta zona es la que utilizarás para enviarnos la información que hayas transcrito, nosotros la guardaremos y validaremos junto con el resto de colaboraciones que otras personas hayan realizado.
+              </p>
+
+              <p>Los botones que encontrarás en esta zona son:</p>
+              <ul>
+                <li>
+                  <b>Guardar:</b>
+                  Si estás seguro del punto marcado en el mapa, este es tu botón. Guardaremos la información que nos envías y te mostraremos otra foto nueva para ver si eres capaz de ubicarla en el mapa también.
+                </li>
+
+                <li>
+                  <b>Omitir:</b>
+                  Si no estás seguro de donde ubicar la fotografía mostrada, no te preocupes, pulsando este botón, te mostraremos una nueva fotografía que es posible que puedas ubicar más fácilmente.
+                </li>
+
+                <li>
+                  <b>Tutorial:</b>
+                  Mediante este botón podrás acceder nuevamente a este tutorial por si tuvieras alguna duda de funcionamiento de las tareas.
+                </li>
+
+                <li>
+                  <b>Información adicional:</b>
+                  En este cuadro puedes añadir información adicional sobre la ubicación de la imagen.
+                </li>
+
+                <li>
+                  <b>Enlaces a fuentes de datos:</b>
+                  Añade tantos enlaces como fuentes de datos uses para ubicar la imagen en el mapa.
+                </li>
+
+                <li>
+                  <b>Añadir comentario:</b>
+                  Mediante este botón podrás añadir un comentario adicional a tu contribución, el cual, solo sera visible por el moderador de la tarea.
+                </li>
+              </ul>
+              <br>
+              <div style="width:100%">
+                <img src="/uploads/proyecto1/tutorial/pantalla_5.jpg" style="margin: 0 auto;display: block;" class="img-responsive"></div>
+              <br>
+              <p>
+                ¡Ya conoces todo lo necesario para empezar el reto! Nuevamente te damos las gracias por querer colaborar en aportar tu granito de arena a la cultura. Pulsa el botón “Comenzar” y te verás la primera imagen para transcribir.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer tab-buttons">
+        <button id="prevBtn" type="button" class="btn btn-default prevBtn">Anterior</button>
+        <button id="nextBtn" type="button" class="btn btn-default nextBtn">Siguiente</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- TUTORIAL -->
+
+
+
+    <link rel="stylesheet" type="text/css" href="/static/css/proyectos/tipo1.css">
+    <link rel="stylesheet" type="text/css" href="/static/annotorious-0.6.4/css/theme-dark/annotorious-dark.css">
+
+    <div class="row" id="finalizado">
+      <div class="col-sm-12">
+        <h2>
+          Ya ha contribuido en todas las tareas del proyecto, muchas gracias por su colaboración.
+        </h2>
+        <div class="row text-center">
+          <div class="col-sm-12"></div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="container container-padded" id="contenedortarea">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <h2 class="pull-left">Transcribe el siguiente documento</h2>
+          <div class="pull-right margin-bottom-sm">
+            <a id="tutobut" class="btn btn-default margin-top-xs" data-toggle="popover" data-title="Tutorial" data-html="false" data-trigger="hover" data-placement="top" data-content="Pulsa en este botón para volver a ver el tutorial.">tutorial</a>
+          </div>
+          <div class="row text-center">
+            <div class="col-sm-12"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        
+        <div class="col-lg-8 col-md-7  col-sm-12">
+          <div class="col-sm-12" id="bloquedocumentoimagentranscribir">
+            <div id="documentopdftranscribir">
+              <img src="" id="imagenlugartranscribir"></div>
+            <div id="botons_ampdowt">
+              <button type="button" id="modot" mode="1"> <i class="fa fa-arrows" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="col-sm-12" id="documentopdf">
+            <img src="" id="imagenlugar" class="panzoom" style="transform: none;">    
+            <div id="botons_ampdow">
+              <button type="button" class="mas"> <i class="fa fa-search-plus" aria-hidden="true"></i>
+              </button>
+              <br>    
+              <button type="button" class="menos">
+                <i class="fa fa-search-minus" aria-hidden="true"></i>
+              </button>
+              <br>
+              <button type="button" class="rotate">
+                <i class="fa fa-undo" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="padding-top-xs col-sm-12 col-sm-12">
+            <p>
+              Tu has completado:
+              <span id="done"> <strong><mark></mark></strong> 
+              </span>
+              tareas de
+              <span id="total"> <strong></strong>
+              </span>
+            </p>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-4 col-md-5  col-sm-12" id="infotipo1">
+          <div class="row">
+
+            <div class="form-group col-md-12">
+                <label class="control-label labelcamposdin">Completa la siguiente información</label>
+                <div id="campos">
+                    
+                </div>
+
+            </div>
+          </div>
+
+
+
+          <div class="row padding-bottom-md" id="bloqueanotaciones">
+            <div class="col-md-12">
+              <label class="control-label">Transcripción libre</label>
+              <p style="margin-bottom: 0px;">
+                En este apartado, puedes añadir si lo deseas la información transcrita del cartel que no se ha solicitado anteriormente. Para ello, podrás hacer uso de la herramienta de marcado, mediante la cual, puedes seleccionar el texto que vas a transcribir en la imagen y añadir el texto transcrito correspondiente. Puedes añadir tantos marcados en la imagen como necesites.
+              </p>
+
+              <ul id="listanotaciones"></ul>
+
+              <input type="button" name="modo" id="modo" value="Pulsa para marcar en la imagen" class="btn btn-default margin-top-xs btn-block"  data-toggle="popover" data-title="Modo" data-html="false" data-trigger="hover" data-placement="top" data-content="Pulsa en este botón para cambiar el modo de visualización." mode="2"></div>
+          </div>
+
+          <div class="row campocomun">
+            <div class="col-md-12">
+              <label class="control-label">Información adicional</label>
+              <textarea class="form-control margin-top-xs margin-bottom-xs" placeholder="Información adicional" id="infoadi"></textarea>
+            </div>
+          </div>
+
+          <div class="row campocomun">
+            <div class="col-md-12">
+              <label class="margentoplabel">Texto antes de la caja</label>
+              <input class="form-control" type="text" id ="enlacesinteres" placeholder ="Enlaces a fuentes de datos" style="display: inline-block;width: 75%;">    
+              <button class="btn btn-default margin-top-xs" id ="enlacesinteresbtn" type="button" style="margin-top: 0px" data-toggle="popover" data-title="Añadir enlace a fuente de datos" data-html="false" data-trigger="hover" data-placement="top" data-content="Añade enlaces a fuentes de datos.">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <ul id="list"></ul>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6 add-comentario-responsive campocomun">
+              <a id="addcomentario" class="btn btn-success btn-block" data-toggle="popover" data-title="Añadir comentario" data-html="false" data-trigger="hover" data-placement="top" data-content="Pulsa en este botón para añadir un comentario adicional a tu contribución, el cual, solo sera visible por el moderador de la tarea.">añadir comentario</a>
+            </div>
+            <div class="col-sm-6">
+              <a href="" id="omitirtarea" style="display: none;" class="btn btn-success btn-block"   data-toggle="popover" data-title="Omitir tarea" data-html="false" data-trigger="hover" data-placement="top" data-content="Pulsa en este botón para pasar a la siguiente tarea.">Omitir</a>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-md-12 add-comentario-desktop">
+              <textarea name="comentario" id="comentario" placeholder="Añade un comentario sobre esta tarea que solo sera visible por el moderador." rows="4" style="display:none" class="form-control margin-top-xs margin-bottom-xs"></textarea>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12 col-md-12  col-sm-12">
+              <input type="button" name="guardar" id="guardar" value="FINALIZAR TAREA" class="btn btn-default margin-top-xs btn-block"  data-toggle="popover" data-title="Guardar colaboración" data-html="false" data-trigger="hover" data-placement="top" data-content="Pulsa en este botón para que tu contribución sea enviada a la Biblioteca Nacional de España."></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+<script src="/static/js/pybossa.js"></script>
+<script src="/static/js/jquery.panzoom.min.js" type="text/javascript"></script>
+<script src="/static/js/jquery.fancybox.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/i18n/es.js"></script>
+<script src="/static/annotorious-0.6.4/annotorious.min.js"></script>
+<script src="/static/annotorious-0.6.4/anno-fancybox.min.js"></script>
+<script src="/static/js/bootstrap-maxlength.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/proyectos/tipo1.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/proyectos/comun.js" type="text/javascript" charset="utf-8"></script>
+
+
+
+
+
+
+<script>
+    nombreshortproyect = '{{project.short_name}}';
+    urlval = $('#body-content').attr("data-url-val");
+    pybossa.run(nombreshortproyect);
+</script>

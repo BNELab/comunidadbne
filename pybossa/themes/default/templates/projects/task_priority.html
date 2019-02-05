@@ -1,0 +1,36 @@
+{% extends "/base.html" %}
+{% set active_page = "projects" %}
+{% import "projects/_helpers.html" as helper %}
+{% from "_formhelpers.html" import render_field %}
+
+{% block content %}
+
+{% if project %}
+{{ helper.render_project_local_nav(project, 'priority', current_user, pro_features, staff_or_admin) }}
+<div class="container container-main">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3">
+            {{ helper.render_project_title(project, subtitle="Prioridad de tarea") }}
+
+            <p>Establezca la <strong> prioridad </strong> de una o más tareas proporcionando una lista de ID de tareas a continuación.</p>
+            <p>La prioridad menor es <span class="label label-danger">0.0</span> y la mayor es <span class="label label-danger">1.0</span></p>
+            <form id="task_priority" class="form-horizontal" method="post" action="{{ url_for('project.task_priority', short_name=project.short_name) }}">
+                {{ form.hidden_tag() }}
+                <fieldset>
+                    {{ render_field(form.task_ids, class_="form-control", placeholder="D de tareas separadas por coma (por ejemplo, 3, 532, 100)", required="required", autofocus="autofocus")}}
+                    {{ render_field(form.priority_0, class_="form-control", placeholder="Prioridad entre 0.0 y 1.0", required="required", type="number", step="any")}}
+                    <div class="pull-right" role="group">
+                        <a href="{{url_for('project.tasks', short_name=project.short_name)}}" class="btn btn-default">Cancelar</a>
+                        <input type="submit" value="Guardar" class="btn btn-default" />
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% else %}
+    {{ helper.render_non_existant_project() }}
+{% endif %}
+
+{% endblock %}

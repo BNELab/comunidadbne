@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% set active_page = "support" %}
+
+{% block content %}
+<div class="container container-main">
+    <div class="col-xs-12">
+        <h1>No autorizado</h1>
+        <p class="lead">Usted no está autorizado para acceder a la URL solicitada.</p>
+        <a id="btnHome" href="{{url_for('home.home')}}" class="btn btn-inverse">
+            <i class="fa fa-home"></i> Ir atrás
+        </a>
+    </div>
+</div>
+{% endblock %}

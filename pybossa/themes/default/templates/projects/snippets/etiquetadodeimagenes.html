@@ -1,0 +1,742 @@
+<!-- tipo###4### -->
+
+<!-- config -->
+<script type="text/javascript" charset="utf-8">
+  camposcomunesConfig = "si";
+  dataConfig = 
+  [
+    {
+      'id':'tipodeimagen', 
+      'titulo':'¿La página contiene imágenes?', 
+      'titulocaja':'Titulo caja',
+      'tipo': 'selectsimplemanual', 
+      'valores' : ["Si" ,"No"],
+      'datononormalizado': 'no',
+    }    
+  ];
+  dataConfigEtiquetas = 
+  [
+    
+    {
+      'id':'personas', 
+      'texto':'Personas', 
+      'datononormalizado': 'no',
+    },
+    {
+      'id':'entidades', 
+      'texto':'Entidades', 
+      'datononormalizado': 'no',
+    },
+    {
+      'id':'obras', 
+      'texto':'Obras', 
+      'datononormalizado': 'no',
+    },
+    {
+      'id':'lugares', 
+      'texto':'Lugares', 
+      'datononormalizado': 'no',
+      'codigoautocompletado': '/tesauros/geografico',
+    },
+    {
+      'id':'etiquetadosocial', 
+      'texto':'Etiquetas temáticas', 
+      'datononormalizado': 'si',
+    },
+    {
+      'id':'textoasociado', 
+      'texto':'Texto asociado', 
+    },
+  ];
+</script>
+<!-- config -->
+
+<!-- TUTORIAL -->
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">
+          Etiquetado de imágenes: <b>Prensa histórica</b>
+        </h4>
+      </div>
+      <div class="modal-body contenedortuto">
+        <div class="steptuto">
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="margin-top-xs margin-bottom-sm"> <strong>Introducción</strong>
+              </h3>
+              <p>
+                Gracias por colaborar y aportar tu conocimiento a este proyecto de enriquecimiento cultural para la Biblioteca Nacional de España. El proyecto en el que estás a punto de participar se trata de un conjunto de elementos de la revista gráfica y literaria "La Estampa".
+              </p>
+
+              <p>
+                Necesitamos tu colaboración para identificar información de las imágenes y así incorporarla a la base de datos de información del catálogo de la Biblioteca Nacional de España.
+              </p>
+
+              <p>
+                Antes de comenzar tienes que saber que puedes colaborar con la Biblioteca Nacional de España de forma anónima o identificándote mediante un usuario registrado. Dicho registro es rápido y sencillo mediante las principales redes sociales. Si te identificas en la plataforma quedarán registradas las estadísticas de colaboración de tu usuario y podrás entrar en los rankings de los mejores colaboradores de la plataforma. Identificarte y/o registrarte es muy sencillo, tan solo tendrás que pulsar el enlace situado en la parte superior de la pantalla “Iniciar sesión” y seguir los sencillos pasos que te indicará.
+              </p>
+
+              <div style="width:100%">
+                <img src="/uploads/proyecto4/tutorial/iniciosesion.jpg" style="margin: 0 auto;display: block;" class="img-responsive"></div>
+
+              <br>
+
+              <p>
+                Pulsa el botón “Siguiente” para continuar con el tutorial, si ya lo has leído anteriormente, puedes cerrarlo directamente. Y si más adelante tienes alguna duda, podrás volver a abrirlo a través del botón “Tutorial” disponible en todas las tareas.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="steptuto">
+          <div class="row">
+            <div class="col-md-12" id="tuto">
+              <h3 class="margin-top-xs margin-bottom-sm"> <strong>Zonas de trabajo</strong>
+              </h3>
+
+              <p>
+                El sistema de colaboración en este proyecto consiste en etiquetar los principales elementos gráficos de la imagen mediante un sencillo componente de etiquetado. El objetivo de cada tarea es disponer del máximo de información sobre cada elemento gráfico. No te preocupes si no etiquetas todos los elementos, cualquier aportación y colaboración es bienvenida y agradecida para nosotros.
+              </p>
+
+              <p>
+                La pantalla de tareas se divide 3 zonas principales: Imagen, Formulario y Colaboración.
+              </p>
+
+              <div style="width:100%">
+                <img src="/uploads/proyecto4/tutorial/pantalla_2.jpg" style="margin: 0 auto;display: block;" class="img-responsive"></div>
+
+              <br>
+
+              <p>
+                Pulsa “Siguiente” para obtener más información sobre como interactuar con cada una de las zonas.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="steptuto">
+          <div class="row">
+            <div class="col-md-12">
+
+              <h3 class="margin-top-xs margin-bottom-sm">
+                <strong>Zona de imagen</strong>
+              </h3>
+
+              <p>
+                En la zona de “Imagen” puedes añadir etiquetas a cada uno de los elementos gráficos. Para ello, arrastra sobre la imagen con la flecha del ratón generando un cuadro de selección como el que se ve en la imagen.
+              </p>
+              <div style="width:100%">
+                <img src="/uploads/proyecto4/tutorial/seleccion.jpg" style="margin: 0 auto;display: block;" class="img-responsive"></div>
+
+              <br>
+
+              <p>
+               Selecciona el tipo de elemento que vas a etiquetar. Puedes etiquetar varios tipos de elementos, como personas, entidades, obras, lugares y añadir etiquetas sociales. Selecciona uno de estos elementos y pulsa sobre el botón de "etiquetar".  
+              </p>
+
+              <div style="width:100%">
+                <img src="/uploads/proyecto4/tutorial/tipos.jpg" style="margin: 0 auto;display: block;" class="img-responsive"></div>
+
+              <br>
+              <p>
+                Pulsa “Siguiente” para conocer todos los tipos de etiquetas disponibles.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="steptuto">
+          <div class="row">
+            <div class="col-md-12">
+
+              <h3 class="margin-top-xs margin-bottom-sm">
+                <strong>Etiquetado de personas</strong>
+              </h3>
+
+              <p>Identifica a las personas seleccionadas usando los datos del catálogo de la BNE.  Puedes rellenar la siguiente información usando los controles de selección. Para ello debes pulsar sobre cada uno de los controles de selección y empezar a escribir el resultado de la pregunta. Estos controles te mostraran sugerencias de autocompletado usando los datos de la Biblioteca Nacional de España . Cuando encuentres el resultado correcto, pulsa sobre el para selecionarlo.</p>
+              <div style="width:100%">
+                <img src="/uploads/proyecto4/tutorial/pantalla_3.jpg" style="margin: 0 auto;display: block;" class="img-responsive"></div>
+
+              <br>
+
+              <p>
+              Pulsa sobre el botón de "guardar" para añadir la información de la persona. Al pulsar sobre "guardar", volverás al paso anterior con el contenido guardado. Puedes añadir otro tipo de etiqueta al mismo cuadro de selección. Para ello, seleccionas el tipo de etiqueta usando el selector y pulsas sobre "etiquetar". Cuando el cuadro de selección contenga toda la información necesaria, pulsa sobre "finalizar".
+              </p>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="steptuto">
+          <div class="row">
+            <div class="col-md-12">
+
+              <h3 class="margin-top-xs margin-bottom-sm">
+                <strong>Etiquetado de entidades</strong>
+              </h3>
+
+              <p>
+                Identifica a las entidades seleccionadas usando los datos del catálogo de la BNE. Puedes rellenar la siguiente información usando los controles de selección. Para ello debes pulsar sobre cada uno de los controles de selección y empezar a escribir el resultado de la pregunta. Estos controles te mostraran sugerencias de autocompletado usando los datos de la Biblioteca Nacional de España . Cuando encuentres el resultado correcto, pulsa sobre el para selecionarlo.
+              </p>
+              <div style="width:100%">
+                <img src="/uploads/proyecto4/tutorial/pantalla_4.jpg" style="margin: 0 auto;display: block;" class="img-responsive"></div>
+
+              <br>
+
+              <p>
+              Pulsa sobre el botón de "guardar" para añadir la información de la entidad. Al pulsar sobre "guardar", volverás al paso anterior con el contenido guardado. Puedes añadir otro tipo de etiqueta al mismo cuadro de selección. Para ello, seleccionas el tipo de etiqueta usando el selector y pulsas sobre "etiquetar". Cuando el cuadro de selección contenga toda la información necesaria, pulsa sobre "finalizar".
+              </p>
+
+            </div>
+          </div>
+        </div>
+
+
+        <div class="steptuto">
+          <div class="row">
+            <div class="col-md-12">
+
+              <h3 class="margin-top-xs margin-bottom-sm">
+                <strong>Etiquetado de obras</strong>
+              </h3>
+
+              <p>
+                Identifica los títulos y autores seleccionados usando los datos del catálogo de la BNE. Puedes rellenar la siguiente información usando los controles de selección. Para ello debes pulsar sobre cada uno de los controles de selección y empezar a escribir el resultado de la pregunta. Estos controles te mostraran sugerencias de autocompletado usando los datos de la Biblioteca Nacional de España . Cuando encuentres el resultado correcto, pulsa sobre el para selecionarlo.
+              </p>
+              <div style="width:100%">
+                <img src="/uploads/proyecto4/tutorial/pantalla_5.jpg" style="margin: 0 auto;display: block;" class="img-responsive"></div>
+
+              <br>
+
+               <p>
+              Pulsa sobre el botón de "guardar" para añadir la información de un título o autor. Al pulsar sobre "guardar", volverás al paso anterior con el contenido guardado. Puedes añadir otro tipo de etiqueta al mismo cuadro de selección. Para ello, seleccionas el tipo de etiqueta usando el selector y pulsas sobre "etiquetar". Cuando el cuadro de selección contenga toda la información necesaria, pulsa sobre "finalizar".
+              </p>
+
+            </div>
+          </div>
+        </div>
+
+
+       <div class="steptuto">
+          <div class="row">
+            <div class="col-md-12">
+
+              <h3 class="margin-top-xs margin-bottom-sm">
+                <strong>Etiquetado de lugares</strong>
+              </h3>
+
+              <p>
+                Identifica el lugar seleccionado usando los datos del catálogo de la BNE y el mapa. Puedes identificar el lugar usando el control de formulario que identifica el nombre del lugar y posteriormente ubicándolo en el mapa.
+              </p>
+
+              <p>
+                Usa el control de formulario "introduce una ubicación" para posicional el mapa en un lugar concreto y facilitar la búsqueda del punto en cuestión.</p>
+              <div style="width:100%">
+                <img src="/uploads/proyecto4/tutorial/pantalla_6.jpg" style="margin: 0 auto;display: block;" class="img-responsive"></div>
+
+              <br>
+
+              <p>
+               Pulsa sobre el botón de "guardar" para añadir la ubicación. Al pulsar sobre "guardar", volverás al paso anterior con el contenido guardado. Puedes añadir otro tipo de etiqueta al mismo cuadro de selección. Para ello, seleccionas el tipo de etiqueta usando el selector y pulsas sobre "etiquetar". Cuando el cuadro de selección contenga toda la información necesaria, pulsa sobre "finalizar".
+              </p>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="steptuto">
+          <div class="row">
+            <div class="col-md-12">
+
+              <h3 class="margin-top-xs margin-bottom-sm">
+                <strong>Etiquetas temáticas</strong>
+              </h3>
+
+              <p>
+              Añade etiquetas descriptivas (temas, elementos que aparecen, etc..) para describir el elemento gráfico. Otros usuarios colaboradores podrán ver y autocompletar sus aportaciones con las etiquetas que añadas en este control de formulario. Añade tantas etiquetas como sean necesarias.
+              </p>
+              <div style="width:100%">
+                <img src="/uploads/proyecto4/tutorial/pantalla_7.jpg" style="margin: 0 auto;display: block;" class="img-responsive"></div>
+
+              <br>
+
+              <p>
+               Pulsa sobre el botón de "guardar" para guardar las etiquetas sociales. Al pulsar sobre "guardar", volverás al paso anterior con el contenido guardado. Puedes añadir otro tipo de etiqueta al mismo cuadro de selección. Para ello, seleccionas el tipo de etiqueta usando el selector y pulsas sobre "etiquetar". Cuando el cuadro de selección contenga toda la información necesaria, pulsa sobre "finalizar".
+              </p>
+
+              <p>Las etiquetas añadidas aparecerán en esta sección.  Desde aquí, puedes editar su información pulsando sobre el icono del “lápiz” o eliminar la etiqueta, eliminando todo su contenido. </p>
+
+              <div style="width:100%">
+                <img src="/uploads/proyecto4/tutorial/personaje.jpg" style="margin: 0 auto;display: block;" class="img-responsive"></div>
+
+              <br>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="steptuto">
+          <div class="row">
+            <div class="col-md-12">
+
+              <h3 class="margin-top-xs margin-bottom-sm">
+                <strong>Zona de formulario</strong>
+              </h3>
+              <p>
+                La zona de formulario consiste en rellenar el contenido de unos campos predefinidos.
+              </p>
+              <p>
+                Puedes rellenar la siguiente información usando los controles de selección.  Para ello debes pulsar sobre cada uno de los controles de selección y empezar a escribir el resultado de la pregunta. Estos controles te mostraran sugerencias de autocompletado usando los datos de la <b>Biblioteca Nacional de España</b>
+                .  Cuando encuentres el resultado correcto, pulsa sobre el para selecionarlo.
+              </p>
+              <p>
+                En caso de que no encuentres respuesta para alguna pregunta en el documento, puedes dejarlo vacío.
+              </p>
+
+              <br>
+
+              <div style="width:100%">
+                <img src="/uploads/proyecto4/tutorial/dinamicos.jpg" style="margin: 0 auto;display: block;" class="img-responsive"></div>
+                <br>
+              <p>
+                No te preocupes si te equivocas o quieres rectificar, pulsando nuevamente “click” izquierdo con el ratón sobre el cuadro de selección, podrás editarlo o eliminarlo.
+              </p>
+
+              <p>
+                Pulsa el botón “Siguiente” para conocer cómo puedes registrar tu colaboración.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="steptuto">
+          <div class="row">
+            <div class="col-md-12">
+
+              <h3 class="margin-top-xs margin-bottom-sm">
+                <strong>Zona de colaboración</strong>
+              </h3>
+
+              <p>
+                Esta zona es la que utilizarás para enviarnos la información que hayas transcrito, nosotros la guardaremos y validaremos junto con el resto de colaboraciones que otras personas hayan realizado.
+              </p>
+
+              <p>Los botones que encontrarás en esta zona son:</p>
+              <ul>
+                <li>
+                  <b>Guardar:</b>
+                  Si estás seguro del punto marcado en el mapa, este es tu botón. Guardaremos la información que nos envías y te mostraremos otra foto nueva para ver si eres capaz de ubicarla en el mapa también.
+                </li>
+
+                <li>
+                  <b>Omitir:</b>
+                  Si no estás seguro de donde ubicar la fotografía mostrada, no te preocupes, pulsando este botón, te mostraremos una nueva fotografía que es posible que puedas ubicar más fácilmente.
+                </li>
+
+                <li>
+                  <b>Tutorial:</b>
+                  Mediante este botón podrás acceder nuevamente a este tutorial por si tuvieras alguna duda de funcionamiento de las tareas.
+                </li>
+
+                <li>
+                  <b>Información adicional:</b>
+                  En este cuadro puedes añadir información adicional sobre la ubicación de la imagen.
+                </li>
+
+                <li>
+                  <b>Enlaces a fuentes de datos:</b>
+                  Añade tantos enlaces como fuentes de datos uses para ubicar la imagen en el mapa.
+                </li>
+
+                <li>
+                  <b>Añadir comentario:</b>
+                  Mediante este botón podrás añadir un comentario adicional a tu contribución, el cual, solo sera visible por el moderador de la tarea.
+                </li>
+              </ul>
+              <br>
+
+              <p>
+                ¡Ya conoces todo lo necesario para empezar el reto! Nuevamente te damos las gracias por querer colaborar en aportar tu granito de arena a la cultura. Pulsa el botón “Comenzar” y te verás la primera imagen para transcribir.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer tab-buttons">
+        <button id="prevBtn" type="button" class="btn btn-default prevBtn">Anterior</button>
+        <button id="nextBtn" type="button" class="btn btn-default nextBtn">Siguiente</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- TUTORIAL -->
+
+    <link rel="stylesheet" type="text/css" href="/static/css/proyectos/tipo4.css">
+    <link rel="stylesheet" type="text/css" href="/static/annotorious-0.6.4/css/theme-dark/annotorious-dark.css">
+
+    <div class="row" id="finalizado">
+      <div class="col-sm-12">
+        <h2>
+          Ya ha contribuido en todas las tareas del proyecto, muchas gracias por su colaboración.
+        </h2>
+        <div class="row text-center">
+          <div class="col-sm-12"></div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="container container-padded" id="contenedortarea">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <h2 class="pull-left">Etiquetado de Imágenes</h2>
+          <div class="pull-right margin-bottom-sm">
+            <a id="tutobut" class="btn btn-default margin-top-xs" data-toggle="popover" data-title="Tutorial" data-html="false" data-trigger="hover" data-placement="top" data-content="Pulsa en este botón para volver a ver el tutorial.">tutorial</a>
+          </div>
+          <div class="row text-center">
+            <div class="col-sm-12"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        
+        <div class="col-lg-8 col-md-8  col-sm-12">
+          <div class="col-sm-12" id="bloquedocumentoimagentranscribir">
+            <div id="documentopdftranscribir">
+              <img src="" id="imagenlugartranscribir" >
+            </div>
+          </div>
+
+
+
+          <div class="padding-top-xs col-sm-12 col-sm-12">
+            <p>
+              Tu has completado:
+              <span id="done"> <strong><mark></mark></strong> 
+              </span>
+              tareas de
+              <span id="total"> <strong></strong>
+              </span>
+            </p>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-4 col-md-4  col-sm-12" id="infotipo1">
+
+
+          <div class="row padding-bottom-sm col-md-12">
+            
+            <div class="col-md-12 padding-bottom-sm">
+               <label class="control-label labelcamposdin">Completa la siguiente información</label>
+              <div id="campos">
+                      
+              </div>
+
+              <label class="control-label padding-top-sm">Listado de etiquetas</label>
+              <ul id="listanotaciones">
+               
+              </ul>
+            </div>
+          </div>
+
+          <div class="row col-md-12 campocomun margin-top-xs">
+            <div class="col-md-12">
+              <label class="control-label">Información adicional</label>
+              <textarea class="form-control margin-top-xs margin-bottom-xs" placeholder="Información adicional" id="infoadi"></textarea>
+            </div>
+          </div>
+
+          <div class="row col-md-12 campocomun">
+            <div class="col-md-12">
+              <label class="margentoplabel">Texto antes de la caja</label>
+              <input class="form-control" type="text" id ="enlacesinteres" placeholder ="Enlaces a fuentes de datos" style="display: inline-block;width: 75%;">    
+              <button class="btn btn-default margin-top-xs" id ="enlacesinteresbtn" type="button" style="margin-top: 0px" data-toggle="popover" data-title="Añadir enlace a fuente de datos" data-html="false" data-trigger="hover" data-placement="top" data-content="Añade enlaces a fuentes de datos.">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+
+            </div>
+          </div>
+
+          <div class="row col-md-12">
+            <ul id="list"></ul>
+          </div>
+
+          <div class="row col-md-12">
+            <div class="col-sm-6 add-comentario-responsive">
+              <a id="addcomentario" class="btn btn-success btn-block campocomun" data-toggle="popover" data-title="Añadir comentario" data-html="false" data-trigger="hover" data-placement="top" data-content="Pulsa en este botón para añadir un comentario adicional a tu contribución, el cual, solo sera visible por el moderador de la tarea.">añadir comentario</a>
+            </div>
+            <div class="col-sm-6">
+              <a href="" id="omitirtarea" style="display: none;" class="btn btn-success btn-block"   data-toggle="popover" data-title="Omitir tarea" data-html="false" data-trigger="hover" data-placement="top" data-content="Pulsa en este botón para pasar a la siguiente tarea.">Omitir</a>
+            </div>
+
+          </div>
+          <div class="row col-md-12">
+            <div class="col-md-12 add-comentario-desktop">
+              <textarea name="comentario" id="comentario" placeholder="Añade un comentario sobre esta tarea que solo sera visible por el moderador." rows="4" style="display:none" class="form-control margin-top-xs margin-bottom-xs"></textarea>
+            </div>
+          </div>
+
+          <div class="row col-md-12">
+            <div class="col-lg-12 col-md-12  col-sm-12">
+              <input type="button" name="guardar" id="guardar" value="FINALIZAR TAREA" class="btn btn-default margin-top-xs btn-block"  data-toggle="popover" data-title="Guardar colaboración" data-html="false" data-trigger="hover" data-placement="top" data-content="Pulsa en este botón para que tu contribución sea enviada a la Biblioteca Nacional de España."></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="modal fade" role="dialog" id="myModalpersonas">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Personas</h4>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12 col-xs-12">
+                  <p>Identifica a las personas seleccionadas usando los datos del catálogo de la BNE.</p>
+                  <form action="" method="get" accept-charset="utf-8">
+                     <div class="form-group">
+                        <select id="persona" name="element" class="form-control js-data-ajax js-data-example-ajax" tipe="C1005" placeholder="Personas" tabindex="-1" aria-hidden="true" data-original-title="Seleccione de la lista con el ratón o el teclado el resultado más adecuado."  multiple>
+                      </select>
+                    </div>
+                  </form>
+
+                  <div class="otrascolaboraciones" id="otrascolaboracionespersonas">
+                    <span class="contribucionesusuarios">Otros usuarios han propuesto:</span>
+                    <div class="colbloque"></div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button id="" type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">Cerrar</button>
+            <button id="" type="button" class="btn btn-default guardardata" tipo="personas">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+   <div class="modal fade" role="dialog" id="myModalentidades">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Entidades</h4>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12 col-xs-12">
+                  <p>Identifica a las entidades seleccionadas usando los datos del catálogo de la BNE.</p>
+                  <form action="" method="get" accept-charset="utf-8">
+                     <div class="form-group">
+                        <select id="entidad" name="element" class="form-control js-data-ajax js-data-example-ajax" tipe="" placeholder="Entidades" tabindex="-1" aria-hidden="true"  data-original-title="Seleccione de la lista con el ratón o el teclado el resultado más adecuado."  multiple>
+                      </select>
+                    </div>
+                  </form>
+                  <div class="otrascolaboraciones" id="otrascolaboracionesentidades">
+                    <span class="contribucionesusuarios">Otros usuarios han propuesto:</span>
+                    <div class="colbloque"></div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button id="" type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">Cerrar</button>
+            <button id="" type="button" class="btn btn-default guardardata" tipo="entidades">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div class="modal fade" role="dialog" id="myModalobras">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Obras</h4>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12 col-xs-12">
+                  <p>Identifica los títulos y autores seleccionados usando los datos del catálogo de la BNE.</p>
+                  <form action="" method="get" accept-charset="utf-8">
+                     <div class="form-group">
+                        <select id="titulo" name="element" class="form-control js-data-ajax js-data-example-ajax" tipe="" placeholder="Títulos" tabindex="-1" aria-hidden="true" data-original-title="Seleccione de la lista con el ratón o el teclado el resultado más adecuado." multiple>
+                      </select>
+                    </div>
+                    <div class="otrascolaboraciones" id="otrascolaboracionestitulos">
+                      <span class="contribucionesusuarios">Otros usuarios han propuesto:</span>
+                      <div class="colbloque"></div>
+                    </div>
+                    <div class="form-group">
+                        <select id="autor" name="element" class="form-control js-data-ajax js-data-example-ajax" tipe="" placeholder="Autores" tabindex="-1" aria-hidden="true" data-original-title="Seleccione de la lista con el ratón o el teclado el resultado más adecuado." multiple>
+                      </select>
+                    </div>
+                    <div class="otrascolaboraciones" id="otrascolaboracionesautores">
+                      <span class="contribucionesusuarios">Otros usuarios han propuesto:</span>
+                      <div class="colbloque"></div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button id="" type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">Cerrar</button>
+            <button id="" type="button" class="btn btn-default guardardata" tipo="obras">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" role="dialog" id="myModallugares">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Lugares</h4>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12 col-xs-12">
+                  <p>Identifica el lugar seleccionado usando los datos del catálogo de la BNE.</p>
+                     <div class="form-group">
+                        <select id="nombredellugar" name="element" class="form-control js-data-ajax js-data-example-ajax" tipe="geografico" placeholder="Nombre del lugar" tabindex="-1" aria-hidden="true" data-original-title="Seleccione de la lista con el ratón o el teclado el resultado más adecuado.">
+                        <option value=""></option>
+                      </select>
+                    </div>
+                    <!--<div id="mapa"></div>
+                    <input type="text" name="direccion" id="direccion" class="form-control margin-top-xs margin-bottom-xs">-->
+                    <br>
+                    <div class="otrascolaboraciones" id="otrascolaboracioneslugares">
+                        <span class="contribucionesusuarios">Otros usuarios han propuesto:</span>
+                        <div class="colbloque"></div>
+                    </div>
+                </div>
+
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button id="" type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">Cerrar</button>
+            <button id="" type="button" class="btn btn-default guardardata" tipo="lugares">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" role="dialog" id="myModaletiquetadosocial">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Etiquetas temáticas</h4>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12 col-xs-12">
+                  <p>Añade etiquetas descriptivas (temas, elementos que aparecen, etc..) para describir la imagen.</p>
+                  <form action="" method="get" accept-charset="utf-8">
+                     <div class="form-group">
+                        <select id="etiquetassociales" name="element" class="form-control js-data-ajax-etiquetasocial js-data-example-ajax" placeholder="Etiquetas" tabindex="-1" aria-hidden="true" data-original-title="Seleccione de la lista con el ratón o el teclado el resultado más adecuado." multiple>
+                      </select>
+                    </div>
+                  </form>
+                  <div class="otrascolaboraciones" id="otrascolaboracionesetiquetadosocial">
+                    <span class="contribucionesusuarios">Otros usuarios han propuesto:</span>
+                    <div class="colbloque"></div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button id="" type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">Cerrar</button>
+            <button id="" type="button" class="btn btn-default guardardata" tipo="etiquetadosocial">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" role="dialog" id="myModaltextoasociado">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Texto asociado</h4>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12 col-xs-12">
+                  <p>Introduce un texto asociado a este elemento.</p>
+                  <form action="" method="get" accept-charset="utf-8">
+                     <div class="form-group">
+                       <textarea class="form-control margin-top-xs margin-bottom-xs" placeholder="Texto asociado" id="textoasociadoarea"></textarea>
+                    </div>
+                  </form>
+                  <div class="otrascolaboraciones" id="otrascolaboracionestextoasociado">
+                    <span class="contribucionesusuarios">Otros usuarios han propuesto:</span>
+                    <div class="colbloque"></div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button id="" type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">Cerrar</button>
+            <button id="" type="button" class="btn btn-default guardardata" tipo="textoasociado">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+<div id="zoomblock" style="width: 300px;height: 300px;">
+</div>
+
+
+<script src="/static/js/pybossa.js"></script>
+<script src="/static/js/jquery.fancybox.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/i18n/es.js"></script>
+<script type="text/javascript">blockmove=true;blockstop=false;blockdraw=false;blockfollow=false;rpx=0;rpy=0;rpw=0;rph=0;</script>
+<script src="/static/annotorious-0.6.4/annotorious.full.js"></script>
+<!--<script src="/static/annotorious-0.6.4/anno-fancybox.min.js"></script>-->
+<script src="/static/js/bootstrap-maxlength.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/jquery.zoom.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/proyectos/tipo4.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/proyectos/comun.js" type="text/javascript" charset="utf-8"></script>
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOmoM9r9wTnR3UYyctdI5bFG3h6kly3NI&libraries=places"></script>-->
+
+
+
+
+
+
+
+<script>
+    proyectid = '{{project.id}}';
+    nombreshortproyect = '{{project.short_name}}';
+    urlval = $('#body-content').attr("data-url-val");
+    pybossa.run(nombreshortproyect);
+</script>

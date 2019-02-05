@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% set active_page = "about" %}
+{% set has_splash = "true" %}
+{% set title = "Cómo contribuir" %}
+{% set description = "Cómo contribuir en la plataforma de crowdsourcing de BNE." %}
+
+{% block content %}
+    {% include ['custom/_about.html', 'home/_about.html'] ignore missing %}
+{% endblock %}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>{{ brand }}{% if title and brand != title %} | {{ title }}{% endif %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="{{ description }}">
+        <meta name="author" content="BNE">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+        <!-- Block robots from private pages -->
+        {% if active_page == 'profile' or activate_page == 'account' %}
+        <meta name="robots" content="noindex,nofollow">
+        {% endif %}
+        <link rel="shortcut icon" href="/static/img/favicon.ico">
+
+        <!-- Le styles -->
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='vendor/bootstrap-3.3.2/css/bootstrap.min.css')}}">
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='vendor/browser-detection/browser-detection.min.css')}}">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400%7CPermanent+Marker">
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='fonts/font-awesome-4.4.0/css/font-awesome.min.css')}}">
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='vendor/select2/css/select2.min.css')}}">
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='vendor/select2/css/select2-bootstrap.min.css')}}">
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/custombne.css')}}">
+
+        <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <style>
+            .ie-vcenter{position:relative;top:50%;transform:translateY(-50%);}
+            .ie-mid-vcenter{position:relative;top:25%;transform:translateY(-25%);}
+        </style>
+        <![endif]-->
+        <!--[if IE 9]>
+        <style>
+            .ie-vcenter{position:relative;top:50%;transform:translateY(-50%);}
+            .ie-mid-vcenter{position:relative;top:25%;transform:translateY(-25%);}
+        </style>
+        <![endif]-->
+
+        <!-- Le javascript -->
+        <script type="text/javascript" src="{{url_for('static', filename='js/vendor/jquery-2.1.3.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/vendor/jquery.cookie.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/vendor/jquery.xdomainrequest.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/vendor/history/scripts/bundled/html4+html5/jquery.history.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/vendor/modernizr.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='vendor/browser-detection/browser-detection.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='vendor/bootstrap-3.3.2/js/bootstrap.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='vendor/openseadragon-2.2.1/openseadragon.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='vendor/openseadragonselection/dist/openseadragonselection.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='vendor/select2/js/select2.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/flash-messages.js')}}"></script>
+
+        {% include '_ga.html' ignore missing %}
+        {% include '_gcs.html' ignore missing %}
+    </head>
+
+    <body>
+
+        <!-- JS required warning-->
+        <noscript>
+            <div id="error" class="alert alert-danger">
+                <strong>Please enable JavaScript!</strong> This website will not work correctly with JavaScript disabled.
+            </div>
+        </noscript>
+
+        <div id="body-content" data-id-user="{{current_user.id}}" data-url-val="{{ config['URLVAL'] }}">
+            {% if not current_user.is_anonymous() %}
+            <!-- checkpoint::logged-in::{{current_user.name}} -->
+            {% endif %}
+
+            <!-- Check if staff or admin -->
+            {% if current_user.is_authenticated() %}
+                  {% set staff_or_admin = (current_user.email_addr.split('@')|length == 2 and current_user.email_addr.split('@')[1] == 'bl.uk') or current_user.admin %}
+            {% else %}
+                {% set staff_or_admin = False %}
+            {% endif %}
+
+            {% set active_page = active_page | default('index') -%}
+            {% set has_splash = has_splash | default('false') -%}
+            {% set active_project  = active_project | default('none') -%}
+            {% include "_navbar.html" %}
+
+            <div class="container-fluid">
+                {% include "_flash_messages.html" %}
+
+                {% block content %}{% endblock %}
+            </div>
+
+            {% if show_cookies_warning %}
+            <div id="cookies-warning" class="container">
+                <div class="col-md-12 text-center">
+                    <span>Las cookies nos ayudan a ofrecer nuestros servicios. Al usar nuestros servicios, usted acepta nuestro uso de cookies.<span id="btn-group-cookies" role="group"></span><button class="btn btn-xs btn-success" onclick="accept_cookies()"><i class="fa fa-thumbs-up"></i> OK</button></span>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <footer id="main-footer">
+        {% include ['custom/_footer.html', '_footer.html'] ignore missing %}
+    </footer>
+
+    <!-- Le javascript -->
+    {% if config.get('SENTRY_DSN') %}
+    <script src="https://cdn.ravenjs.com/3.7.0/raven.min.js"></script>
+    <script>
+        // Setup Sentry logging for JS
+        var dsn = '{{ config["SENTRY_DSN"] }}';
+        var publicDsn = dsn.replace(/:[A-z0-9]*@sentry.io/i, '@sentry.io');
+        Raven.config(publicDsn).install();
+    </script>
+    {% endif %}
+    <script type="text/javascript" src="{{url_for('static', filename='vendor/specialedit/specialedit.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/scripts.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/errors.js')}}"></script>
+    <script>
+        {% include 'cookies.js' %}
+    </script>
+    </body>
+</html>

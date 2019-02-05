@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% set active_page = "admin" %}
+{% set active_link = "categories" %}
+{% from "admin/_helpers.html" import render_admin_local_nav %}
+
+{% block content %}
+{{ render_admin_local_nav(current_user, active_link) }}
+<div class="container container-main">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3">
+            <h1><strong>Admin:</strong> Borrar categoría</h1>
+            <hr>
+            <div class="alert alert-danger">
+                <strong>Cuidado!</strong> Eliminando la categoria eliminaras todos sus poyectos asociados.
+            </div>
+            <h2>Borrar categoría: {{category.name}}?</h2>
+            <form method="POST" role="form" action="{{url_for('admin.del_category', id=category.id)}}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                <input class="btn btn-default" type="submit"  value="Si"></input>
+                <a class="btn btn-success" href="{{url_for('admin.categories')}}">No, no borrar</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

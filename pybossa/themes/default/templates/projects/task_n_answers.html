@@ -1,0 +1,50 @@
+{% extends "/base.html" %}
+{% set active_page = "projects" %}
+{% import "projects/_helpers.html" as helper %}
+{% from "_formhelpers.html" import render_field %}
+
+{% block content %}
+
+{% if project %}
+{{ helper.render_project_local_nav(project, 'redundancy', current_user, pro_features, staff_or_admin) }}
+<div class="container container-main {{project.id}}">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3">
+            {{ helper.render_project_title(project, subtitle="Redundancia de tarea") }}
+            <form id="task_redundancy" class="form-horizontal" method="post" action="{{ url_for('project.task_n_answers', short_name=project.short_name) }}">
+                {{ form.hidden_tag() }}
+                <fieldset>
+                    {{ render_field(form.n_answers, class_="input-block-level form-control", placeholder="El número de contribuciones requeridas por tarea", type="number", autofocus="autofocus", required="required", pattern=".{1,100}", title="Debe ser un número entre 1 y 100") }}
+                    <div class="pull-right" role="group">
+                        <a href="{{url_for('project.tasks', short_name=project.short_name)}}" class="btn btn-default">Cancelar</a>
+                        <input type="submit" value="Guardar" class="btn btn-default">
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+{% else %}
+    {{ helper.render_non_existant_project() }}
+{% endif %}
+<script type="text/javascript">
+$(function() {
+
+    function getnanswers() {
+        var id = '{{project.id}}';
+        $.ajax({
+            url: "{{config.get('URLVAL')}}endpoint/get_n_answers?idproyecto="+id,
+            data: {},
+        }).done(function(data) {
+            //console.log(data);
+            if(data != ""){
+                $('#n_answers').val(data);
+            }else{
+                pybossaNotify("Es necesario importar tareas antes de establecer un valor de redundancia.","warning")
+            }
+        });
+    }
+    getnanswers();
+});
+</script>
+{% endblock %}

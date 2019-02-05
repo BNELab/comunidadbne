@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% set active_page = "profile" %}
+{% import "account/_helpers.html" as helper %}
+{% import "projects/_helpers.html" as project_helper %}
+{% set title = "Perfil" %}
+{% set description = "Perfil" %}
+
+{% block content %}
+<span class="set-body-bg" data-bg="pattern-white-wall"></span>
+<div class="container container-main">
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 text-center">
+            {{ helper.render_user_profile(current_user, upload_method) }}
+        </div>
+
+        <div class="col-xs-12 col-sm-8">
+            <div class="white-panel inset-shadow-white">
+                {% if projects_contrib %}
+                    {{project_helper.render_grid_projects(projects_contrib, "Contribuciones", upload_method)}}
+                {% else %}
+                <div class="text-center">
+                    <h2>Sin contribuciones</h2>
+                    <p>Será mejor que comiences <i class="fa fa-smile-o"></i></p>
+                    <div class="text-center padding-bottom-sm padding-top-sm">
+                        <a class="btn btn-default" href="{{url_for('project.index')}}">Ver todos los proyectos</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{{ project_helper.broken_image() }}
+{% endblock %}

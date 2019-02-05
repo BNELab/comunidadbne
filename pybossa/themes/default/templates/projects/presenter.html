@@ -1,0 +1,59 @@
+{% extends "/base.html" %}
+{% set active_page = "projects"  %}
+{% set active_project = project.short_name %}
+{% set title = "Proyecto: "+project.name %}
+{% set description = project.description %}
+
+{% block content %}
+<script>
+    Modernizr.load({
+            test: window.JSON,
+            nope: '{{url_for('static', filename='js/vendor/json2.min.js')}}'
+            });
+</script>
+<script src="{{url_for('static', filename='js/pybossa/pybossa.js')}}?v1.2.0" type="text/javascript"></script>
+<div class="container container-fluid">
+    {% if invite_new_volunteers %}
+        <div class="row">
+            <div class="col-xs-12 text-center padding-top-lg" id="finalizado-cm">
+                <h1>Genial, ha contribuido a todas las tareas para este proyecto.</h1>
+                <h2>Pero este proyecto aún necesita más voluntarios, así que ¡difundan la palabra!</h2>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if invite_new_volunteers != true %}
+      {{ project.info.task_presenter|safe }}
+    {% endif %}
+</div>
+<script>
+// Temp fix for HTML entities being returned by Z39.50 API
+var decodeEntities = (function() {
+  // this prevents any overhead from creating the object each time
+  var element = document.createElement('div');
+
+  function decodeHTMLEntities (str) {
+    if(str && typeof str === 'string') {
+      // strip script/html tags
+      str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+      str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+      element.innerHTML = str;
+      str = element.textContent;
+      element.textContent = '';
+    }
+
+    return str;
+  }
+
+  return decodeHTMLEntities;
+})();
+
+$('#search_results').on('DOMSubtreeModified', function() {
+    $('.z3950-record .title a').each(function() { $(this).html(decodeEntities($(this).html())) });
+    $('.z3950-record .author').each(function() { $(this).html(decodeEntities($(this).html())) });
+    $('.z3950-record .publisher').each(function() { $(this).html(decodeEntities($(this).html())) });
+    $('.z3950-record .pubyear').each(function() { $(this).html(decodeEntities($(this).html())) });
+    $('.z3950-record .physdesc').each(function() { $(this).html(decodeEntities($(this).html())) });
+ });
+</script>
+{% endblock %}
